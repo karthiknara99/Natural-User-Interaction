@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.teamnougat.todolistapp.db.TaskContract;
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TaskDbHelper myHelper;
     private ListView myList;
-    private ArrayAdapter<String> myAdapter;
+    private NewArrayAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +59,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<Item> taskList = new ArrayList<>();
         SQLiteDatabase db = myHelper.getReadableDatabase();
 
         String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " FROM " + TaskContract.TaskEntry.TABLE
                 + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
-        //String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + ";";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                taskList.add( cursor.getString(0) );
+                taskList.add( new Item( cursor.getString(0), cursor.getString(1), cursor.getString(2) ) );
             } while (cursor.moveToNext());
         }
 
         if (myAdapter == null) {
-            myAdapter = new ArrayAdapter<>(this,
+            myAdapter = new NewArrayAdapter(this,
                     R.layout.item_todo,
-                    R.id.task_title,
                     taskList);
             myList.setAdapter(myAdapter);
         }
