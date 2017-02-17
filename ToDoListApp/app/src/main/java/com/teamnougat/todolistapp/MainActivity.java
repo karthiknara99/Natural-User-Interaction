@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " FROM " + TaskContract.TaskEntry.TABLE
                 + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+        /*
+        SELECT TITLE, TYPE, DUEDATE FROM TASKS WHERE KEY ORDER BY DUEDATE;
+         */
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 

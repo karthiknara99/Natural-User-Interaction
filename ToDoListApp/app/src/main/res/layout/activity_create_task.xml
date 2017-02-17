@@ -4,96 +4,101 @@
     android:id="@+id/activity_create_task"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.teamnougat.todolistapp.CreateTaskActivity">
 
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/txt_taskName"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:hint="Enter Task Name"/>
+    <LinearLayout android:id="@+id/Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-<Spinner
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/sp_taskTypes"
-    android:entries="@array/task_types"
-    android:layout_below="@+id/txt_taskName"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginTop="36dp"
-    android:spinnerMode="dropdown"/>
+        <EditText
+            android:id="@+id/create_taskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Task Name"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Due Date"
-    android:id="@+id/btnDatePick"
-    android:layout_alignBottom="@+id/txt_DueDate"
-    android:layout_alignRight="@+id/sp_taskTypes"
-    android:layout_alignEnd="@+id/sp_taskTypes" />
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:text=" "
+            android:background="#d3d3d3" />
 
-<EditText
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:inputType="date"
-    android:ems="10"
-    android:id="@+id/txt_DueDate"
-    android:layout_below="@+id/sp_taskTypes"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_toLeftOf="@+id/btnDatePick"
-    android:layout_toStartOf="@+id/btnDatePick" />
+        <Spinner
+            android:id="@+id/create_taskType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"/>
 
-<EditText
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:inputType="time"
-    android:ems="10"
-    android:id="@+id/txt_DueTime"
-    android:layout_below="@+id/txt_DueDate"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_toLeftOf="@+id/btnTimePick"
-    android:layout_toStartOf="@+id/btnTimePick" />
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:text=" "
+            android:background="#d3d3d3"/>
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Time"
-    android:id="@+id/btnTimePick"
-    android:layout_below="@+id/btnDatePick"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true" />
+        <TextView
+            android:id="@+id/create_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent" />
 
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/txt_Location"
-    android:layout_below="@+id/btnTimePick"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginTop="54dp"
-    android:layout_alignRight="@+id/btnTimePick"
-    android:layout_alignEnd="@+id/btnTimePick"
-    android:hint="Enter Location"/>
+        <TextView
+            android:id="@+id/line3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:text=" "
+            android:background="#d3d3d3"/>
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="OK"
-    android:id="@+id/btn_Submit"
-    android:layout_below="@+id/txt_Location"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginTop="54dp" />
+        <TextView
+            android:id="@+id/create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/line4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:text=" "
+            android:background="#d3d3d3"/>
+
+        <EditText
+            android:id="@+id/create_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Add Location"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/line5"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:text=" "
+            android:background="#d3d3d3"/>
+
+        <Button
+            android:id="@+id/create_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="135dp"
+            android:text="OK"
+            android:textSize="13dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
