@@ -3,8 +3,11 @@ package com.karthiknara99.todolist.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class TaskDbHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = "TaskDbHelper";
 
     public TaskDbHelper(Context context) {
         super(context, TaskContract.DB_NAME, null, TaskContract.DB_VERSION);
@@ -12,11 +15,28 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE IF NOT EXISTS " + TaskContract.TaskEntry.TABLE + " ( " +
-                TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL);";
-
+        String createTable = "CREATE TABLE " + TaskContract.TaskEntry.TABLE + " ( " +
+                TaskContract.TaskEntry.COL_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COL_TASK_TYPE + " CHAR(15) NOT NULL, " +
+                TaskContract.TaskEntry.COL_TASK_DUEDATE + " DATE NOT NULL, " +
+                TaskContract.TaskEntry.COL_TASK_DUETIME + " TIME, " +
+                TaskContract.TaskEntry.COL_TASK_REMINDER + " TIME, " +
+                TaskContract.TaskEntry.COL_TASK_LOCATION + " TEXT, " +
+                TaskContract.TaskEntry.COL_TASK_KEY + " BOOLEAN NOT NULL DEFAULT 1); ";
         db.execSQL(createTable);
+        Log.d(TAG, createTable);
+        /*
+            CREATE TABLE IF NOT EXISTS(
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                TITLE TEXT NOT NULL,
+                TYPE CHAR(15) NOT NULL,
+                DUEDATE DATE NOT NULL,
+                DUETIME TIME,
+                REMINDER TIME,
+                LOCATION TEXT,
+                KEY BOOLEAN NOT NULL DEFAULT 1);
+         */
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.karthiknara99.todolist;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myHelper = new TaskDbHelper(this);
+        Log.d(TAG, myHelper.getDatabaseName());
         myList = (ListView) findViewById(R.id.list_todo);
         updateUI();
     }
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_task:
                 Log.d(TAG, "Add a new task");
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
                 return true;
 
             default:
@@ -50,15 +54,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( resultCode == RESULT_OK ){
+            updateUI();
+        }
+    }
+
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = myHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
-                null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            taskList.add(cursor.getString(idx));
+        String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + ";";
+        Log.d(TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                taskList.add( cursor.getString(1) );
+            } while (cursor.moveToNext());
         }
 
         if (myAdapter == null) {
