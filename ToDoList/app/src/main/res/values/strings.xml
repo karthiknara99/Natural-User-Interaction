@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">ToDoList</string>
-
-    <string-array name="task_types">
-        <item>Personal</item>
-        <item>Work</item>
-        <item>Other</item>
-    </string-array>
-</resources>
