@@ -1,5 +1,9 @@
 package com.teamnougat.todolistapp;
 
+import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.Prediction;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.database.Cursor;
@@ -9,14 +13,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 
 import com.teamnougat.todolistapp.db.TaskDbHelper;
 import com.teamnougat.todolistapp.db.TaskContract;
 
-public class ViewTaskActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.ArrayList;
+
+public class ViewTaskActivity extends AppCompatActivity implements View.OnClickListener, OnGesturePerformedListener{
 
     private static final String TAG = "ViewTaskActivity";
     private TaskDbHelper myHelper;
+    private GestureLibrary gestLib;
     Button btnDone;
     String task_id;
 
@@ -29,7 +40,15 @@ public class ViewTaskActivity extends AppCompatActivity implements View.OnClickL
         }
         task_id = getIntent().getStringExtra("TASK_ID");
         Log.d(TAG, task_id);
-        setContentView(R.layout.activity_view_task);
+        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        View inflate = getLayoutInflater().inflate(R.layout.activity_view_task, null);
+        gestureOverLay.addView(inflate);
+        gestureOverLay.addOnGesturePerformedListener(this);
+        gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
+        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        if(!gestLib.load())
+            finish();
+        setContentView(gestureOverLay);
         btnDone = (Button)findViewById(R.id.btn_Done);
         myHelper = new TaskDbHelper(this);
         getTaskDetails();
@@ -87,6 +106,27 @@ public class ViewTaskActivity extends AppCompatActivity implements View.OnClickL
             updateDb();
             setResult(RESULT_OK, null);
             finish();
+        }
+    }
+
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
+                Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
+                updateDb();
+                setResult(RESULT_OK, null);
+                finish();
+            }
+            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            {
+                Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK, null);
+                finish();
+            }
         }
     }
 }

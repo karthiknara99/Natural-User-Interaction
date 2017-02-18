@@ -1,5 +1,6 @@
 package com.teamnougat.todolistapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.ContentValues;
@@ -21,10 +22,18 @@ import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.Prediction;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 
-public class CreateTaskActivity extends AppCompatActivity implements View.OnClickListener{
+public class CreateTaskActivity extends AppCompatActivity implements View.OnClickListener, OnGesturePerformedListener{
 
     private static final String TAG = "CreateTaskActivity";
     private TaskDbHelper myHelper;
@@ -35,10 +44,19 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     TextView cdate, ctime;
     private int mYear, mMonth, mDate, mDay, mHour, mMinute;
     private String finalDate, sMonth, sDate, sHour, sMinute;
+    private GestureLibrary gestLib;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_task);
+        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        View inflate = getLayoutInflater().inflate(R.layout.activity_create_task, null);
+        gestureOverLay.addView(inflate);
+        gestureOverLay.addOnGesturePerformedListener(this);
+        gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
+        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        if(!gestLib.load())
+            finish();
+        setContentView(gestureOverLay);
 
         myHelper = new TaskDbHelper(this);
 
@@ -190,6 +208,31 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                         }
                     }, mHour, mMinute, false);
             t.show();
+        }
+    }
+
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
+                if( ctaskName.getText().toString().isEmpty() ){
+                    Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    insertDb();
+                    setResult(RESULT_OK, null);
+                    finish();
+                }
+            }
+            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            {
+                Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK, null);
+                finish();
+            }
         }
     }
 }

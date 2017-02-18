@@ -8,11 +8,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:uncertainGestureColor="#00000000"
+    android:gestureColor="#00000000"
     tools:context="com.teamnougat.todolistapp.MainActivity">
 
     <ListView
         android:id="@+id/list_todo"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:uncertainGestureColor="#00000000"
+        android:gestureColor="#00000000"/>
 
 </RelativeLayout>

@@ -1,5 +1,12 @@
 package com.teamnougat.todolistapp;
 
+
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Gesture;
+import android.gesture.Prediction;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -11,24 +18,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
-
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnGesturePerformedListener {
 
     private static final String TAG = "MainActivity";
     private TaskDbHelper myHelper;
     private ListView myList;
     private NewArrayAdapter myAdapter;
+    private GestureLibrary gestLib;
     ArrayList<String> taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        View inflate = getLayoutInflater().inflate(R.layout.activity_main, null);
+        gestureOverLay.addView(inflate);
+        gestureOverLay.addOnGesturePerformedListener(this);
+        gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
+        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        if(!gestLib.load())
+            finish();
+        setContentView(gestureOverLay);
 
         taskId = new ArrayList<>();
         myHelper = new TaskDbHelper(this);
@@ -53,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+
     @Override   //Insert
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -74,6 +91,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("c")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
+            }
+        }
+    }
     private void updateUI() {
         ArrayList<Item> taskList = new ArrayList<>();
         taskId.clear();

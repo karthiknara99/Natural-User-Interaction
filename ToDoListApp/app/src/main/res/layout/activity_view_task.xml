@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:uncertainGestureColor="#00000000"
+    android:gestureColor="#00000000"
     android:weightSum="1">
 
     <TextView
