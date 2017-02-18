@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override   //Insert
     public boolean onOptionsItemSelected(MenuItem item) {

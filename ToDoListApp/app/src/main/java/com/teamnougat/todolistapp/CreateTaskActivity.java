@@ -1,5 +1,6 @@
 package com.teamnougat.todolistapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.gesture.GestureLibraries;
@@ -38,7 +40,6 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     private static final String TAG = "CreateTaskActivity";
     private TaskDbHelper myHelper;
 
-    Button csubmit;
     Spinner ctaskType;
     EditText ctaskName, clocation;
     TextView cdate, ctime;
@@ -71,7 +72,6 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         cdate = (TextView) findViewById(R.id.create_date);
         ctime = (TextView) findViewById(R.id.create_time);
         clocation = (EditText)findViewById(R.id.create_location);
-        csubmit = (Button)findViewById(R.id.create_submit);
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -96,7 +96,31 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
         cdate.setOnClickListener(this);
         ctime.setOnClickListener(this);
-        csubmit.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_task_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override   //Save
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save_task:
+                if( ctaskName.getText().toString().isEmpty() ){
+                    Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    insertDb();
+                    setResult(RESULT_OK, null);
+                    finish();
+                }
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public String findDay( int mDay ){
@@ -153,16 +177,6 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if( v == csubmit ){
-            if( ctaskName.getText().toString().isEmpty() ){
-                Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                insertDb();
-                setResult(RESULT_OK, null);
-                finish();
-            }
-        }
         if( v == cdate ) {
             final Calendar c = Calendar.getInstance();
 

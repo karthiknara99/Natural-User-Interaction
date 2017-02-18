@@ -93,15 +93,6 @@
             android:text=" "
             android:background="#d3d3d3"/>
 
-        <Button
-            android:id="@+id/create_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="135dp"
-            android:text="OK"
-            android:textSize="13dp"/>
-
     </LinearLayout>
 
 </RelativeLayout>
