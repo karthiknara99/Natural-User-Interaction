@@ -62,13 +62,11 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-
-        sDate = "";
+        sHour = ""; sMinute = "";
+        sDate = ""; sMonth = "";
         if( mDate < 10 )
             sDate = "0";
         sDate += mDate;
-
-        sMonth = "";
         if( mMonth < 10 )
             sMonth = "0";
         sMonth += mMonth;
@@ -86,13 +84,14 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     public String findDay( int mDay ){
         String sDay = "";
         switch(mDay){
-            case 0: sDay = "Sun";   break;
-            case 1: sDay = "Mon";   break;
-            case 2: sDay = "Tue";   break;
-            case 3: sDay = "Wed";   break;
-            case 4: sDay = "Thu";   break;
-            case 5: sDay = "Fri";   break;
-            case 6: sDay = "Sat";   break;
+            case 1: sDay = "Sun";   break;
+            case 2: sDay = "Mon";   break;
+            case 3: sDay = "Tue";   break;
+            case 4: sDay = "Wed";   break;
+            case 5: sDay = "Thu";   break;
+            case 6: sDay = "Fri";   break;
+            case 7: sDay = "Sat";   break;
+            default: sDay = "No" + mDay;   break;
         }
         return sDay;
     }
@@ -159,11 +158,10 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                             mDate = dayOfMonth;
                             mMonth = monthOfYear;
                             mYear = year;
-                            sDate = "";
+                            sDate = ""; sMonth = "";
                             if( mDate < 10 )
                                 sDate = "0";
                             sDate += mDate;
-                            sMonth = "";
                             if( mMonth < 10 )
                                 sMonth = "0";
                             sMonth += mMonth;
@@ -181,6 +179,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             mHour = hourOfDay;
                             mMinute = minute;
+                            sHour = ""; sMinute = "";
                             if( mHour < 10 )
                                 sHour = "0";
                             sHour += "" + mHour;

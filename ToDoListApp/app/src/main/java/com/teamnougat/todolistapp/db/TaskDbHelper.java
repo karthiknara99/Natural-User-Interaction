@@ -24,7 +24,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COL_TASK_DUETIME + " TIME, " +
                 TaskContract.TaskEntry.COL_TASK_REMINDER + " TIME, " +
                 TaskContract.TaskEntry.COL_TASK_LOCATION + " TEXT, " +
-                TaskContract.TaskEntry.COL_TASK_KEY + " BOOLEAN NOT NULL DEFAULT 1); ";
+                TaskContract.TaskEntry.COL_TASK_KEY + " INTEGER(1) NOT NULL DEFAULT 1); ";
         db.execSQL(createTable);
         Log.d(TAG, createTable);
         /*
@@ -36,7 +36,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 DUETIME TIME,
                 REMINDER TIME,
                 LOCATION TEXT,
-                KEY BOOLEAN NOT NULL DEFAULT 1);
+                KEY INTEGER(1) NOT NULL DEFAULT 1);
          */
     }
 

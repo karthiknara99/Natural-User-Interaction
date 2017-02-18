@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.teamnougat.todolistapp.db.TaskContract;
@@ -20,15 +23,28 @@ public class MainActivity extends AppCompatActivity {
     private TaskDbHelper myHelper;
     private ListView myList;
     private NewArrayAdapter myAdapter;
+    ArrayList<String> taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        taskId = new ArrayList<>();
         myHelper = new TaskDbHelper(this);
         myList = (ListView) findViewById(R.id.list_todo);
         updateUI();
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                int temp = (int)id;
+                String msg = "" + taskId.get(temp);
+                Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
+                i.putExtra("TASK_ID", msg);
+                startActivityForResult(i, 1);
+            }
+        });
     }
 
     @Override
@@ -60,16 +76,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         ArrayList<Item> taskList = new ArrayList<>();
+        taskId.clear();
         SQLiteDatabase db = myHelper.getReadableDatabase();
         //SQLiteDatabase db = myHelper.getWritableDatabase();
         //db.execSQL("DELETE FROM " + TaskContract.TaskEntry.TABLE + ";");
-
-        String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
-                + TaskContract.TaskEntry.COL_TASK_TYPE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDAY
-                + " FROM " + TaskContract.TaskEntry.TABLE
-                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+        //db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE);
+        String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1 ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
         /*
-        SELECT TITLE, TYPE, DUEDATE FROM TASKS WHERE KEY ORDER BY DUEDATE;
+        SELECT TITLE, TYPE, DUEDATE FROM TASKS WHERE KEY=1 ORDER BY DUEDATE;
         */
 
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -77,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (cursor.moveToFirst()) {
             do {
-                String[] input = cursor.getString(2).split("-");
+                taskId.add(cursor.getString(0));
+                String[] input = cursor.getString(3).split("-");
                 switch(input[1])
                 {
                     case "00": newDate = "Jan";   break;
@@ -93,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
                     case "10": newDate = "Nov";   break;
                     case "11": newDate = "Dec";   break;
                 }
-                newDate = cursor.getString(3) + ", " + newDate + " " + input[2];
+                newDate = cursor.getString(4) + ", " + newDate + " " + input[2];
 
-                taskList.add( new Item( cursor.getString(0), cursor.getString(1), newDate ) );
+                taskList.add( new Item( cursor.getString(1), cursor.getString(2), newDate ) );
             } while (cursor.moveToNext());
         }
 

@@ -24,6 +24,11 @@ public class NewArrayAdapter extends ArrayAdapter<Item> {
     }
 
     @Override
+    public long getItemId(int position){
+        return position;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
