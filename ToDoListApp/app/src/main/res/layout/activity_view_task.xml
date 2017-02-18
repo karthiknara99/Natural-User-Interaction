@@ -1,65 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:text="Task Name"
+    <LinearLayout android:id="@+id/Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txv_TaskName"
-        android:layout_weight="0.10"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="vertical">
 
-    <TextView
-        android:text="Due Date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txv_DueDate"
-        android:layout_weight="0.10"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/txv_TaskType"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/txv_TaskName"
+            android:text="Task Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
 
-    <TextView
-        android:text="Task Type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txv_TaskType"
-        android:layout_weight="0.10"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/txv_TaskName"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/txv_TaskType"
+            android:text="Task Type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
 
-    <Button
-        android:text="DONE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_Done"
-        android:layout_weight="0.10"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/txv_DueDate"
+            android:text="Due Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
 
-    <TextView
-        android:text="Due Time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txv_DueTime"
-        android:layout_weight="0.10"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/txv_DueDate"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/txv_DueTime"
+            android:text="Due Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
 
-    <TextView
-        android:text="Location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txv_Location"
-        android:layout_weight="0.10"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/txv_DueTime"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/txv_Location"
+            android:text="Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/btn_Done"
+            android:text="DONE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="135dp"
+            android:textSize="13dp"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
