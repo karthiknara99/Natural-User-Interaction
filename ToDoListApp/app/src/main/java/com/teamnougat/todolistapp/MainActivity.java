@@ -61,19 +61,41 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI() {
         ArrayList<Item> taskList = new ArrayList<>();
         SQLiteDatabase db = myHelper.getReadableDatabase();
+        //SQLiteDatabase db = myHelper.getWritableDatabase();
+        //db.execSQL("DELETE FROM " + TaskContract.TaskEntry.TABLE + ";");
 
         String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
-                + TaskContract.TaskEntry.COL_TASK_TYPE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " FROM " + TaskContract.TaskEntry.TABLE
+                + TaskContract.TaskEntry.COL_TASK_TYPE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ", " + TaskContract.TaskEntry.COL_TASK_DUEDAY
+                + " FROM " + TaskContract.TaskEntry.TABLE
                 + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
         /*
         SELECT TITLE, TYPE, DUEDATE FROM TASKS WHERE KEY ORDER BY DUEDATE;
-         */
+        */
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        String newDate = "";
 
         if (cursor.moveToFirst()) {
             do {
-                taskList.add( new Item( cursor.getString(0), cursor.getString(1), cursor.getString(2) ) );
+                String[] input = cursor.getString(2).split("-");
+                switch(input[1])
+                {
+                    case "00": newDate = "Jan";   break;
+                    case "01": newDate = "Feb";   break;
+                    case "02": newDate = "Mar";   break;
+                    case "03": newDate = "Apr";   break;
+                    case "04": newDate = "May";   break;
+                    case "05": newDate = "Jun";   break;
+                    case "06": newDate = "Jul";   break;
+                    case "07": newDate = "Aug";   break;
+                    case "08": newDate = "Sep";   break;
+                    case "09": newDate = "Oct";   break;
+                    case "10": newDate = "Nov";   break;
+                    case "11": newDate = "Dec";   break;
+                }
+                newDate = cursor.getString(3) + ", " + newDate + " " + input[2];
+
+                taskList.add( new Item( cursor.getString(0), cursor.getString(1), newDate ) );
             } while (cursor.moveToNext());
         }
 

@@ -34,8 +34,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     EditText ctaskName, clocation;
     TextView cdate, ctime;
     private int mYear, mMonth, mDate, mDay, mHour, mMinute;
-    private String sDay, sMonth, sHour, sMinute;
-
+    private String finalDate, sMonth, sDate, sHour, sMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,14 +60,22 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         mMonth = c.get(Calendar.MONTH);
         mDate = c.get(Calendar.DAY_OF_MONTH);
         mDay = c.get(Calendar.DAY_OF_WEEK);
-        sDay = findDay(mDay);
-        sMonth = findMonth(mMonth);
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        sHour = "";
-        sMinute = "";
 
-        cdate.setText( sDay + ", " + sMonth + " " + mDate + ", " + mYear );
+        sDate = "";
+        if( mDate < 10 )
+            sDate = "0";
+        sDate += mDate;
+
+        sMonth = "";
+        if( mMonth < 10 )
+            sMonth = "0";
+        sMonth += mMonth;
+
+        finalDate = mYear + "-" + sMonth + "-" + sDate;
+
+        cdate.setText( findDay(mDay) + ", " + findMonth(mMonth) + " " + sDate + ", " + mYear );
         ctime.setText("23" + ":" + "59");
 
         cdate.setOnClickListener(this);
@@ -116,7 +123,8 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
         values.put(TaskContract.TaskEntry.COL_TASK_TITLE, ctaskName.getText().toString());
         values.put(TaskContract.TaskEntry.COL_TASK_TYPE, ctaskType.getSelectedItem().toString());
-        values.put(TaskContract.TaskEntry.COL_TASK_DUEDATE, cdate.getText().toString());
+        values.put(TaskContract.TaskEntry.COL_TASK_DUEDATE, finalDate);
+        values.put(TaskContract.TaskEntry.COL_TASK_DUEDAY, cdate.getText().toString().substring(0,3));
         values.put(TaskContract.TaskEntry.COL_TASK_DUETIME, ctime.getText().toString());
         if(!clocation.getText().toString().isEmpty())
             values.put(TaskContract.TaskEntry.COL_TASK_LOCATION, clocation.getText().toString());
@@ -150,9 +158,17 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                             String dayOfWeek = sdf.format(date);
                             mDate = dayOfMonth;
                             mMonth = monthOfYear;
-                            sMonth = findMonth(monthOfYear);
                             mYear = year;
-                            cdate.setText( dayOfWeek + ", " + sMonth + " " + mDate + ", " + mYear );
+                            sDate = "";
+                            if( mDate < 10 )
+                                sDate = "0";
+                            sDate += mDate;
+                            sMonth = "";
+                            if( mMonth < 10 )
+                                sMonth = "0";
+                            sMonth += mMonth;
+                            finalDate = mYear + "-" + sMonth + "-" + sDate;
+                            cdate.setText( dayOfWeek + ", " + findMonth(mMonth) + " " + sDate + ", " + mYear );
                         }
                     }, mYear, mMonth, mDate);
             d.show();
