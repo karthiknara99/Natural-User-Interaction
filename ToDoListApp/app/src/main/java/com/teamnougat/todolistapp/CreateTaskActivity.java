@@ -42,7 +42,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     Spinner ctaskType;
     EditText ctaskName, clocation;
     TextView cdate, ctime;
-    private int mYear, mMonth, mDate, mDay, mHour, mMinute;
+    private int mYear, mMonth, mDate, mDay, mHour, mMinute, newMonth;
     private String finalDate, sMonth, sDate, sHour, sMinute;
     private GestureLibrary gestLib;
 
@@ -76,7 +76,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH); mMonth++;
+        mMonth = c.get(Calendar.MONTH); newMonth = mMonth;  newMonth++;
         mDate = c.get(Calendar.DAY_OF_MONTH);
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -88,11 +88,11 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         sDate += mDate;
         if( mMonth < 10 )
             sMonth = "0";
-        sMonth += mMonth;
+        sMonth += newMonth;
 
         finalDate = mYear + "-" + sMonth + "-" + sDate;
 
-        cdate.setText( findDay(mDay) + ", " + findMonth(mMonth) + " " + sDate + ", " + mYear );
+        cdate.setText( findDay(mDay) + ", " + findMonth(mMonth+1) + " " + sDate + ", " + mYear );
         ctime.setText("23" + ":" + "59");
 
         cdate.setOnClickListener(this);
@@ -192,7 +192,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                             Date date = new Date(year, monthOfYear, dayOfMonth-1);
                             String dayOfWeek = sdf.format(date);
                             mDate = dayOfMonth;
-                            mMonth = monthOfYear;   mMonth++;
+                            mMonth = monthOfYear;   newMonth = mMonth;  newMonth++;
                             mYear = year;
                             sDate = ""; sMonth = "";
                             if( mDate < 10 )
@@ -200,9 +200,9 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                             sDate += mDate;
                             if( mMonth < 10 )
                                 sMonth = "0";
-                            sMonth += mMonth;
+                            sMonth += newMonth;
                             finalDate = mYear + "-" + sMonth + "-" + sDate;
-                            cdate.setText( dayOfWeek + ", " + findMonth(mMonth) + " " + sDate + ", " + mYear );
+                            cdate.setText( dayOfWeek + ", " + findMonth(mMonth+1) + " " + sDate + ", " + mYear );
                         }
                     }, mYear, mMonth, mDate);
             d.show();

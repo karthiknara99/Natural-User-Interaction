@@ -124,18 +124,18 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 String[] input = cursor.getString(3).split("-");
                 switch(input[1])
                 {
-                    case "00": newDate = "Jan";   break;
-                    case "01": newDate = "Feb";   break;
-                    case "02": newDate = "Mar";   break;
-                    case "03": newDate = "Apr";   break;
-                    case "04": newDate = "May";   break;
-                    case "05": newDate = "Jun";   break;
-                    case "06": newDate = "Jul";   break;
-                    case "07": newDate = "Aug";   break;
-                    case "08": newDate = "Sep";   break;
-                    case "09": newDate = "Oct";   break;
-                    case "10": newDate = "Nov";   break;
-                    case "11": newDate = "Dec";   break;
+                    case "01": newDate = "Jan";   break;
+                    case "02": newDate = "Feb";   break;
+                    case "03": newDate = "Mar";   break;
+                    case "04": newDate = "Apr";   break;
+                    case "05": newDate = "May";   break;
+                    case "06": newDate = "Jun";   break;
+                    case "07": newDate = "Jul";   break;
+                    case "08": newDate = "Aug";   break;
+                    case "09": newDate = "Sep";   break;
+                    case "10": newDate = "Oct";   break;
+                    case "11": newDate = "Nov";   break;
+                    case "12": newDate = "Dec";   break;
                 }
                 newDate = cursor.getString(4) + ", " + newDate + " " + input[2];
 

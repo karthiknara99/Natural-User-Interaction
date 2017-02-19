@@ -10,7 +10,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="To Do"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

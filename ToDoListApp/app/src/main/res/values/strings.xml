@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoListApp</string>
+    <string name="app_name">Remembrall</string>
 
     <string-array name="task_types">
         <item>Personal</item>
