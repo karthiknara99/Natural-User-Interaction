@@ -8,25 +8,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CreateTaskActivity"
+            android:icon="@drawable/ic_action_cross"
             android:label="Add Task"
-            android:parentActivityName=".MainActivity"
-            android:icon="@drawable/ic_action_cross"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ViewTaskActivity"
-            android:parentActivityName=".MainActivity"
             android:icon="@drawable/ic_action_back"
-            android:label="Task"/>
+            android:label="Task"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
