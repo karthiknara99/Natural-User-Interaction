@@ -1,6 +1,7 @@
 package com.teamnougat.todolistapp;
 
 import android.graphics.Color;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.ContentValues;
@@ -50,6 +51,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         GestureOverlayView gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_create_task, null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
@@ -106,6 +108,9 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     @Override   //Save
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             case R.id.action_save_task:
                 if( ctaskName.getText().toString().isEmpty() ){
                     Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
@@ -242,7 +247,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
             }
             else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
-                Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, null);
                 finish();
             }

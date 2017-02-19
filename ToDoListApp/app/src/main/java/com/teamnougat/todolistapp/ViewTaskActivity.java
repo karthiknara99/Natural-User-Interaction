@@ -3,6 +3,9 @@ package com.teamnougat.todolistapp;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.database.Cursor;
@@ -29,6 +32,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     private TaskDbHelper myHelper;
     private GestureLibrary gestLib;
     String task_id;
+    ActionBar ab;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         Log.d(TAG, task_id);
         GestureOverlayView gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_view_task, null);
+        ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
@@ -61,6 +67,9 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     @Override   //Done
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             case R.id.action_view_task:
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
                 updateDb();
@@ -94,6 +103,24 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
 
         if (cursor.moveToFirst()) {
             textTitle.setText(cursor.getString(0));
+            //if( cursor.getString(0) !=null )
+            //    ab.setTitle(cursor.getString(0));
+            if( cursor.getString(1) != null )
+                if( cursor.getString(1).equalsIgnoreCase("personal") )
+                {
+                    Drawable img = getApplicationContext().getResources().getDrawable( R.drawable.ic_action_home );
+                    textType.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+                }
+                else if( cursor.getString(1).equalsIgnoreCase("work") )
+                {
+                    Drawable img = getApplicationContext().getResources().getDrawable( R.drawable.ic_action_work );
+                    textType.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+                }
+                else
+                {
+                    Drawable img = getApplicationContext().getResources().getDrawable( R.drawable.ic_action_other );
+                    textType.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+                }
             textType.setText(cursor.getString(1));
             textDate.setText(cursor.getString(2));
             textTime.setText(cursor.getString(3));
@@ -136,7 +163,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             }
             else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
-                Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, null);
                 finish();
             }
