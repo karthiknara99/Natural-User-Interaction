@@ -1,6 +1,5 @@
 package com.teamnougat.todolistapp;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -46,6 +44,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     private int mYear, mMonth, mDate, mDay, mHour, mMinute;
     private String finalDate, sMonth, sDate, sHour, sMinute;
     private GestureLibrary gestLib;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

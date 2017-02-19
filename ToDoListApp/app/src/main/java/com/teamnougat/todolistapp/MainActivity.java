@@ -1,6 +1,5 @@
 package com.teamnougat.todolistapp;
 
-
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         GestureOverlayView gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_main, null);
         gestureOverLay.addView(inflate);
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
             }
         }
     }
+
     private void updateUI() {
         ArrayList<Item> taskList = new ArrayList<>();
         taskId.clear();

@@ -1,6 +1,5 @@
 package com.teamnougat.todolistapp;
 
-import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.graphics.Color;
@@ -9,8 +8,9 @@ import android.os.Bundle;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.gesture.GestureLibraries;
@@ -23,12 +23,11 @@ import com.teamnougat.todolistapp.db.TaskContract;
 
 import java.util.ArrayList;
 
-public class ViewTaskActivity extends AppCompatActivity implements View.OnClickListener, OnGesturePerformedListener{
+public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerformedListener{
 
     private static final String TAG = "ViewTaskActivity";
     private TaskDbHelper myHelper;
     private GestureLibrary gestLib;
-    Button btnDone;
     String task_id;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +48,29 @@ public class ViewTaskActivity extends AppCompatActivity implements View.OnClickL
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);
-        btnDone = (Button)findViewById(R.id.btn_Done);
         myHelper = new TaskDbHelper(this);
         getTaskDetails();
-        btnDone.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_task_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override   //Done
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_view_task:
+                Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
+                updateDb();
+                setResult(RESULT_OK, null);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void getTaskDetails() {
@@ -79,7 +97,13 @@ public class ViewTaskActivity extends AppCompatActivity implements View.OnClickL
             textType.setText(cursor.getString(1));
             textDate.setText(cursor.getString(2));
             textTime.setText(cursor.getString(3));
-            textLocation.setText(cursor.getString(4));
+            if( cursor.getString(4) == null )
+            {
+                textLocation.setText("No Location");
+                textLocation.setTextColor(Color.parseColor("#A9A9A9"));
+            }
+            else
+                textLocation.setText(cursor.getString(4));
         }
         else{
             Toast.makeText(this, "Task Not Found", Toast.LENGTH_SHORT).show();
@@ -96,17 +120,6 @@ public class ViewTaskActivity extends AppCompatActivity implements View.OnClickL
         db.execSQL(updateQuery);
         Log.d(TAG, "Updated");
         db.close();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == btnDone)
-        {
-            Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
-            updateDb();
-            setResult(RESULT_OK, null);
-            finish();
-        }
     }
 
     @Override
