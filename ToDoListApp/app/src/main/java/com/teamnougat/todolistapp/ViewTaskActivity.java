@@ -31,7 +31,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     private static final String TAG = "ViewTaskActivity";
     private TaskDbHelper myHelper;
     private GestureLibrary gestLib;
-    String task_id;
+    String task_id, newDate;
     ActionBar ab;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDATE + ", "
+                + TaskContract.TaskEntry.COL_TASK_DUEDAY + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUETIME + ", "
                 + TaskContract.TaskEntry.COL_TASK_LOCATION
                 + " FROM " + TaskContract.TaskEntry.TABLE
@@ -106,6 +107,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             //if( cursor.getString(0) !=null )
             //    ab.setTitle(cursor.getString(0));
             if( cursor.getString(1) != null )
+            {
                 if( cursor.getString(1).equalsIgnoreCase("personal") )
                 {
                     Drawable img = getApplicationContext().getResources().getDrawable( R.drawable.ic_action_home );
@@ -118,19 +120,37 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
                 }
                 else
                 {
-                    Drawable img = getApplicationContext().getResources().getDrawable( R.drawable.ic_action_other );
-                    textType.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+                    Drawable img = getApplicationContext().getResources().getDrawable(R.drawable.ic_action_other);
+                    textType.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
                 }
+            }
             textType.setText(cursor.getString(1));
-            textDate.setText(cursor.getString(2));
-            textTime.setText(cursor.getString(3));
-            if( cursor.getString(4) == null )
+            String[] input = cursor.getString(2).split("-");
+            switch(input[1])
+            {
+                case "01": input[1] = "Jan";   break;
+                case "02": input[1] = "Feb";   break;
+                case "03": input[1] = "Mar";   break;
+                case "04": input[1] = "Apr";   break;
+                case "05": input[1] = "May";   break;
+                case "06": input[1] = "Jun";   break;
+                case "07": input[1] = "Jul";   break;
+                case "08": input[1] = "Aug";   break;
+                case "09": input[1] = "Sep";   break;
+                case "10": input[1] = "Oct";   break;
+                case "11": input[1] = "Nov";   break;
+                case "12": input[1] = "Dec";   break;
+            }
+            newDate = cursor.getString(3) + ", " + input[1] + " " + input[2] + ", " + input[0];
+            textDate.setText(newDate);
+            textTime.setText(cursor.getString(4));
+            if( cursor.getString(5) == null )
             {
                 textLocation.setText("No Location");
                 textLocation.setTextColor(Color.parseColor("#A9A9A9"));
             }
             else
-                textLocation.setText(cursor.getString(4));
+                textLocation.setText(cursor.getString(5));
         }
         else{
             Toast.makeText(this, "Task Not Found", Toast.LENGTH_SHORT).show();
@@ -149,6 +169,15 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         db.close();
     }
 
+    public void deleteDb() {
+        SQLiteDatabase db = myHelper.getWritableDatabase();
+        String updateQuery = "DELETE FROM " + TaskContract.TaskEntry.TABLE + " WHERE " +
+                TaskContract.TaskEntry.COL_TASK_ID + "=" +task_id +";";
+        db.execSQL(updateQuery);
+        Log.d(TAG, "Deleted");
+        db.close();
+    }
+
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
     {
@@ -158,6 +187,12 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
                 updateDb();
+                setResult(RESULT_OK, null);
+                finish();
+            }
+            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("cross")) {
+                Toast.makeText(this, "Task Deleted!", Toast.LENGTH_SHORT).show();
+                deleteDb();
                 setResult(RESULT_OK, null);
                 finish();
             }
