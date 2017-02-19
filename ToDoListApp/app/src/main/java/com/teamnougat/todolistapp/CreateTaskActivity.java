@@ -76,7 +76,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
+        mMonth = c.get(Calendar.MONTH); mMonth++;
         mDate = c.get(Calendar.DAY_OF_MONTH);
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -145,18 +145,18 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     public String findMonth( int mMonth ){
         String sMonth = "";
         switch(mMonth){
-            case 0: sMonth = "Jan";   break;
-            case 1: sMonth = "Feb";   break;
-            case 2: sMonth = "Mar";   break;
-            case 3: sMonth = "Apr";   break;
-            case 4: sMonth = "May";   break;
-            case 5: sMonth = "Jun";   break;
-            case 6: sMonth = "Jul";   break;
-            case 7: sMonth = "Aug";   break;
-            case 8: sMonth = "Sep";   break;
-            case 9: sMonth = "Oct";   break;
-            case 10: sMonth = "Nov";   break;
-            case 11: sMonth = "Dec";   break;
+            case 1: sMonth = "Jan";   break;
+            case 2: sMonth = "Feb";   break;
+            case 3: sMonth = "Mar";   break;
+            case 4: sMonth = "Apr";   break;
+            case 5: sMonth = "May";   break;
+            case 6: sMonth = "Jun";   break;
+            case 7: sMonth = "Jul";   break;
+            case 8: sMonth = "Aug";   break;
+            case 9: sMonth = "Sep";   break;
+            case 10: sMonth = "Oct";   break;
+            case 11: sMonth = "Nov";   break;
+            case 12: sMonth = "Dec";   break;
         }
         return sMonth;
     }
@@ -192,7 +192,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                             Date date = new Date(year, monthOfYear, dayOfMonth-1);
                             String dayOfWeek = sdf.format(date);
                             mDate = dayOfMonth;
-                            mMonth = monthOfYear;
+                            mMonth = monthOfYear;   mMonth++;
                             mYear = year;
                             sDate = ""; sMonth = "";
                             if( mDate < 10 )
