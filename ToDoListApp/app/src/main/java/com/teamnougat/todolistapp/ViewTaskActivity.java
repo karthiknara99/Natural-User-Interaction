@@ -185,19 +185,22 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         for (Prediction prediction : predictions)
         {
             if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
                 updateDb();
                 setResult(RESULT_OK, null);
                 finish();
             }
-            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("cross")) {
+            else if (prediction.score > 2.0 && prediction.name.toLowerCase().equals("alpha")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Task Deleted!", Toast.LENGTH_SHORT).show();
                 deleteDb();
                 setResult(RESULT_OK, null);
                 finish();
             }
-            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, null);
                 finish();

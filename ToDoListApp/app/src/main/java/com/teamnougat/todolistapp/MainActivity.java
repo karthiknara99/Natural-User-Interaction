@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.widget.Toast;
+
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         ArrayList<Prediction> predictions = gestLib.recognize(gesture);
         for (Prediction prediction : predictions)
         {
-            if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("c")) {
+            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
                 //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
                 startActivityForResult(i, 1);

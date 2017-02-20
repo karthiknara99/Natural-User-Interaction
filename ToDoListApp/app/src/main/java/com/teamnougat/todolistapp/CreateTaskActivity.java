@@ -236,6 +236,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         for (Prediction prediction : predictions)
         {
             if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 if( ctaskName.getText().toString().isEmpty() ){
                     Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
                 }
@@ -245,8 +246,9 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                     finish();
                 }
             }
-            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, null);
                 finish();
