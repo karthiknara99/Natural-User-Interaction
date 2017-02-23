@@ -335,7 +335,7 @@
         android:layout_below="@+id/dividerView"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:fadingEdge="none" >
+        android:fadingEdge="none">
 
         <RelativeLayout
             android:id="@+id/calendarRelativeLayout"
