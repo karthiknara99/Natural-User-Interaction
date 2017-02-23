@@ -1,9 +1,6 @@
 # REMEMBRALL<br/>
-<ul>
-<li>A light-weight easy to use To-Do List android application which works upon touch gesture events.</li>
-<li>Using $P (point cloud) recognition method for gesture recognition.</li>
-<li>Gesture templates were built as per user surveys based on the factors - popularity and easy-to-use.</li>
-</ul>
+
+A light-weight easy to use To-Do List android application which works upon touch gesture events. Gestures are recognized using $P (point cloud) recognition method. Gesture templates were built as per user surveys based on the factors - popularity and easy-to-use.
 
 Gestures used so far:<br/>
 <ul>
