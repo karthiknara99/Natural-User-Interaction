@@ -1,8 +1,10 @@
-# Natural-User-Interaction
+# Natural-User-Interaction<br/>
 This repository is for CEN5726 - Natural User Interaction, Spring 2017 at the University of Florida<br/>
 
-The To-Do List is an android application which is named as "Remembrall".<br/>
-It is a simple light-weight application that can literally be used without even looking at the screen as it is gesture based, where the user is required to draw a gesture corresponding to each task.
+"REMEMBRALL"<br/>
+A To-Do List android application which works upon touch gesture events.<br/>
+Using a $P (point cloud) recognition method along for gesture recognition.<br/>
+Gesture templates were selected via user surveys.<br/>
 
 Completion Dates:<br/>
 Build 1 - 20th February, 2017
