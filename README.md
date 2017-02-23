@@ -1,7 +1,4 @@
-# Natural-User-Interaction<br/><br/>
-This repository is for CEN5726 - Natural User Interaction, Spring 2017 at the University of Florida<br/>
-
-"REMEMBRALL"<br/>
+# REMEMBRALL<br/>
 <ul>
 <li>A To-Do List android application which works upon touch gesture events.</li>
 <li>Using a $P (point cloud) recognition method for gesture recognition.</li>
