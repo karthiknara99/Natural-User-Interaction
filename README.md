@@ -6,7 +6,7 @@ Gestures used so far:<br/>
 <ul>
 <li>Create Task - "C"</li>
 <li>Save Task / Mark Task as done - "✓"</li>
-<li>Delete Task - "α"</li>
+<li>Delete Task - "α" (Alpha)</li>
 <li>Back to previous page - "→" (Swipe Right)</li>
 </ul>
 
