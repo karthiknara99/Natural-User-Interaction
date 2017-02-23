@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <View
-        android:id="@+id/dividerView41"
+        android:id="@+id/dividerViewVertical"
         android:layout_width="1dp"
         android:layout_height="1440dp"
         android:background="@color/medium_gray" />

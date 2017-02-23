@@ -11,7 +11,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,7 +24,11 @@
             android:icon="@drawable/ic_action_back"
             android:label="Task"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".WeeklyViewActivity">
+        <activity
+            android:name=".WeeklyViewActivity"
+            android:icon="@drawable/ic_action_back"
+            android:label="Weekly View"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
