@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Remembrall</string>
+
+    <string-array name="task_types">
+        <item>Personal</item>
+        <item>Work</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>

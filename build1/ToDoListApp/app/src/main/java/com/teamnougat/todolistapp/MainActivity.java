@@ -101,11 +101,6 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
                 startActivityForResult(i, 1);
             }
-            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("w")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
-                startActivityForResult(i, 1);
-            }
         }
     }
 

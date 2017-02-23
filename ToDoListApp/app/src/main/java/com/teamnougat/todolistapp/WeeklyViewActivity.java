@@ -14,12 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -168,7 +168,8 @@ public class WeeklyViewActivity extends AppCompatActivity {
     private void getTaskDetails() {
         SQLiteDatabase db = myHelper.getReadableDatabase();
 
-        String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
+        String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_ID + ", "
+                + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDAY + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUETIME
@@ -181,11 +182,11 @@ public class WeeklyViewActivity extends AppCompatActivity {
             do {
                 TextView msg = new TextView(WeeklyViewActivity.this);
                 msg.setBackgroundResource(R.color.medium_dark_gray);
-                msg.setText( cursor.getString(0) );
+                msg.setText( cursor.getString(1) );
                 msg.setTextSize(15);
                 msg.setTextColor(getResources().getColor(R.color.strong_blue));
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)(60*density));
-                String[] input = cursor.getString(3).split(":");
+                String[] input = cursor.getString(4).split(":");
                 int px = Integer.parseInt(input[0])*60 + Integer.parseInt(input[1]);
                 px = (int)( (px-60) * density );
                 params.setMargins(0, px, 0, 0);
@@ -193,7 +194,7 @@ public class WeeklyViewActivity extends AppCompatActivity {
                 msg.setGravity(Gravity.CENTER);
 
                 int layoutId = 0;
-                switch( cursor.getString(2) )
+                switch( cursor.getString(3) )
                 {
                     case "Sun": layoutId = 0;   break;
                     case "Mon": layoutId = 1;   break;
