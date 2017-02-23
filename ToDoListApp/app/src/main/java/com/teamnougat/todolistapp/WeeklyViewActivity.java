@@ -2,6 +2,7 @@ package com.teamnougat.todolistapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,11 +17,12 @@ public class WeeklyViewActivity extends AppCompatActivity {
 
     private static final String TAG = "WeeklyViewActivity";
     private TaskDbHelper myHelper;
-    private int mYear, mMonth, mDate, mDay, subd, mHour, mMinute;
+    private int mMonth, mDay, subd, mHour, mMinute;
     private String sDate, eDate, sMonth;
     private Date newDate;
     private SimpleDateFormat dateFormat;
     TextView[] myDay = new TextView[7];
+    View[] myMarker = new View[7];
     TextView[] myMonth = new TextView[3];
     LinearLayout timeMarker;
     ViewGroup.MarginLayoutParams params;
@@ -35,25 +37,15 @@ public class WeeklyViewActivity extends AppCompatActivity {
         final Calendar c = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        timeMarker = (LinearLayout) findViewById(R.id.currentTimeMarkerLinearLayout);
-        myMonth[0] = (TextView)findViewById(R.id.currentMonthTextView1);
-        myMonth[1] = (TextView)findViewById(R.id.currentMonthTextView2);
-        myMonth[2] = (TextView)findViewById(R.id.currentMonthTextView3);
-        myDay[0] = (TextView)findViewById(R.id.sundayDateTextView);
-        myDay[1] = (TextView)findViewById(R.id.mondayDateTextView);
-        myDay[2] = (TextView)findViewById(R.id.tuesdayDateTextView);
-        myDay[3] = (TextView)findViewById(R.id.wednesdayDateTextView);
-        myDay[4] = (TextView)findViewById(R.id.thursdayDateTextView);
-        myDay[5] = (TextView)findViewById(R.id.fridayDateTextView);
-        myDay[6] = (TextView)findViewById(R.id.saturdayDateTextView);
+        getviews();
 
-        mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
-        mDate = c.get(Calendar.DAY_OF_MONTH);
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         mMinute = (mHour * 60) + mMinute - 1;
+
+        myMarker[mDay-1].setVisibility(View.VISIBLE);
 
         params = (ViewGroup.MarginLayoutParams) timeMarker.getLayoutParams();
         float density = getResources().getDisplayMetrics().density;
@@ -102,5 +94,27 @@ public class WeeklyViewActivity extends AppCompatActivity {
             eDate = dateFormat.format(newDate);
             myDay[i].setText( eDate.substring(8) );
         }
+    }
+
+    private void getviews()
+    {
+        timeMarker = (LinearLayout) findViewById(R.id.currentTimeMarkerLinearLayout);
+        myMonth[0] = (TextView)findViewById(R.id.currentMonthTextView1);
+        myMonth[1] = (TextView)findViewById(R.id.currentMonthTextView2);
+        myMonth[2] = (TextView)findViewById(R.id.currentMonthTextView3);
+        myDay[0] = (TextView)findViewById(R.id.sundayDateTextView);
+        myDay[1] = (TextView)findViewById(R.id.mondayDateTextView);
+        myDay[2] = (TextView)findViewById(R.id.tuesdayDateTextView);
+        myDay[3] = (TextView)findViewById(R.id.wednesdayDateTextView);
+        myDay[4] = (TextView)findViewById(R.id.thursdayDateTextView);
+        myDay[5] = (TextView)findViewById(R.id.fridayDateTextView);
+        myDay[6] = (TextView)findViewById(R.id.saturdayDateTextView);
+        myMarker[0] = (View)findViewById(R.id.sundayMarkerView);
+        myMarker[1] = (View)findViewById(R.id.mondayMarkerView);
+        myMarker[2] = (View)findViewById(R.id.tuesdayMarkerView);
+        myMarker[3] = (View)findViewById(R.id.wednesdayMarkerView);
+        myMarker[4] = (View)findViewById(R.id.thursdayMarkerView);
+        myMarker[5] = (View)findViewById(R.id.fridayMarkerView);
+        myMarker[6] = (View)findViewById(R.id.saturdayMarkerView);
     }
 }
