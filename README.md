@@ -2,7 +2,7 @@
 
 <br/>A light-weight easy to use To-Do List android application which works upon touch gesture events. Gestures are recognized using $P (point cloud) recognition method. Gesture templates were built as per user surveys based on the factors - popularity and easy-to-use.
 
-Gestures used so far:<br/>
+Gestures incorporated so far:<br/>
 <ul>
 <li>Create Task - "C"</li>
 <li>Save Task / Mark Task as done - "✓"</li>
