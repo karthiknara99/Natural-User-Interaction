@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
@@ -27,7 +28,7 @@ public class WeeklyViewActivity extends AppCompatActivity {
 
     private static final String TAG = "WeeklyViewActivity";
     private TaskDbHelper myHelper;
-    private int mMonth, mDay, subd, mHour, mMinute;
+    private int mMonth, mDay, subd, mHour, mMinute, locY;
     private String sDate, eDate, sMonth;
     private Date newDate;
     private SimpleDateFormat dateFormat;
@@ -41,11 +42,12 @@ public class WeeklyViewActivity extends AppCompatActivity {
     ScrollView sv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        locY = 0;
         myHelper = new TaskDbHelper(this);
         final Calendar c = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -196,13 +198,27 @@ public class WeeklyViewActivity extends AppCompatActivity {
                 int layoutId = 0;
                 switch( cursor.getString(3) )
                 {
-                    case "Sun": layoutId = 0;   break;
-                    case "Mon": layoutId = 1;   break;
-                    case "Tue": layoutId = 2;   break;
-                    case "Wed": layoutId = 3;   break;
-                    case "Thu": layoutId = 4;   break;
-                    case "Fri": layoutId = 5;   break;
-                    case "Sat": layoutId = 6;   break;
+                    case "Sun":
+                        layoutId = 0;
+                        break;
+                    case "Mon":
+                        layoutId = 1;
+                        break;
+                    case "Tue":
+                        layoutId = 2;
+                        break;
+                    case "Wed":
+                        layoutId = 3;
+                        break;
+                    case "Thu":
+                        layoutId = 4;
+                        break;
+                    case "Fri":
+                        layoutId = 5;
+                        break;
+                    case "Sat":
+                        layoutId = 6;
+                        break;
                 }
 
                 myLayout[layoutId].addView(msg);
