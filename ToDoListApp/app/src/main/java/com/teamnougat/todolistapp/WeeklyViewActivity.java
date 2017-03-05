@@ -1,5 +1,6 @@
 package com.teamnougat.todolistapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
@@ -18,14 +19,15 @@ import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class WeeklyViewActivity extends AppCompatActivity {
+public class WeeklyViewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "WeeklyViewActivity";
     private TaskDbHelper myHelper;
-    private int mYear, mMonth, mDay, subd;
+    private int mYear, mMonth, mDay, subd, row_cnt;
     private String sDate, eDate, sMonth;
     private Date newDate;
     private SimpleDateFormat dateFormat;
@@ -34,6 +36,8 @@ public class WeeklyViewActivity extends AppCompatActivity {
     View[] myMarker = new View[7];
     LinearLayout[] myLayout = new LinearLayout[7];
     TextView myMonth;
+    TextView[] msg;
+    ArrayList<String> taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -41,7 +45,9 @@ public class WeeklyViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weekly_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        row_cnt = 0;
         myHelper = new TaskDbHelper(this);
+        taskId = new ArrayList<>();
         final Calendar c = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -131,10 +137,22 @@ public class WeeklyViewActivity extends AppCompatActivity {
         myLayout[6] = (LinearLayout) findViewById(R.id.saturdayLinearLayout);
     }
 
+    @Override
+    public void onClick(View v) {
+        int z;
+        for( z = 0; v != msg[z]; z++ );
+        String msg = "" + taskId.get(z);
+        Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
+        i.putExtra("TASK_ID", msg);
+        startActivityForResult(i, 1);
+    }
+
     private void getTaskDetails() {
         SQLiteDatabase db = myHelper.getReadableDatabase();
 
-        String selectQuery = "SELECT " + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
+        String selectQuery = "SELECT "
+                + TaskContract.TaskEntry.COL_TASK_ID + ", "
+                + TaskContract.TaskEntry.COL_TASK_TITLE + ", "
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDATE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDAY
@@ -145,26 +163,30 @@ public class WeeklyViewActivity extends AppCompatActivity {
                 + ";";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        row_cnt = cursor.getCount();
+        msg = new TextView[row_cnt];
         int col = 0;
+        int i = 0;
         if (cursor.moveToFirst()) {
             do {
-                TextView msg = new TextView(WeeklyViewActivity.this);
-                msg.setText( cursor.getString(0) );
-                msg.setTextSize(15);
-                msg.setTypeface(Typeface.DEFAULT_BOLD);
-                msg.setTextColor(getResources().getColor(R.color.white));
-                msg.setGravity(Gravity.CENTER);
+                taskId.add( cursor.getString(0) );
+                msg[i] = new TextView(WeeklyViewActivity.this);
+                msg[i].setText( cursor.getString(1) );
+                msg[i].setTextSize(15);
+                msg[i].setTypeface(Typeface.DEFAULT_BOLD);
+                msg[i].setTextColor(getResources().getColor(R.color.white));
+                msg[i].setGravity(Gravity.CENTER);
                 int px = 0;
-                if( cursor.getString(0).length() < 15 )
+                if( cursor.getString(1).length() < 15 )
                     px = (int)(70 * density);
-                else if( cursor.getString(0).length() < 23 )
+                else if( cursor.getString(1).length() < 23 )
                     px = (int)(100 * density);
                 else
                     px = (int)(140 * density);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, px);
                 params.setMargins(10,10,10,0);
-                msg.setLayoutParams(params);
-                msg.setPadding(0,10,0,10);
+                msg[i].setLayoutParams(params);
+                msg[i].setPadding(0,10,0,10);
                 GradientDrawable shape =  new GradientDrawable();
                 shape.setCornerRadius( 10f );
                 switch (col)
@@ -176,10 +198,10 @@ public class WeeklyViewActivity extends AppCompatActivity {
                     case 4: shape.setColor(getResources().getColor(R.color.color5));   break;
                 }
                 col = ( col + 1 ) % 5;
-                msg.setBackground(shape);
+                msg[i].setBackground(shape);
 
                 int layoutId = 0;
-                switch( cursor.getString(3) )
+                switch( cursor.getString(4) )
                 {
                     case "Sun": layoutId = 0;   break;
                     case "Mon": layoutId = 1;   break;
@@ -189,7 +211,9 @@ public class WeeklyViewActivity extends AppCompatActivity {
                     case "Fri": layoutId = 5;   break;
                     case "Sat": layoutId = 6;   break;
                 }
-                myLayout[layoutId].addView(msg);
+                myLayout[layoutId].addView(msg[i]);
+                msg[i].setOnClickListener(this);
+                i++;
             } while (cursor.moveToNext());
         }
 

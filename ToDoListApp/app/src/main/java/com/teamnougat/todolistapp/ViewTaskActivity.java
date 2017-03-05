@@ -68,7 +68,8 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                setResult(RESULT_OK, null);
+                finish();
                 return true;
             case R.id.action_view_task:
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
