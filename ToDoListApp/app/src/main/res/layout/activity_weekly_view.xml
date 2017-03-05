@@ -26,7 +26,6 @@
                 android:gravity="center"
                 android:text="JANUARY 2017"
                 android:textSize="30dp"
-                android:textStyle="bold"
                 android:textColor="@color/medium_dark_gray" />
 
         </LinearLayout>
@@ -57,7 +56,6 @@
                     android:text="01"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -67,7 +65,6 @@
                     android:text="@string/sun"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -94,7 +91,6 @@
                     android:text="02"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -104,7 +100,6 @@
                     android:text="@string/mon"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -131,7 +126,6 @@
                     android:text="03"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -141,7 +135,6 @@
                     android:text="@string/tue"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -168,7 +161,6 @@
                     android:text="04"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -178,7 +170,6 @@
                     android:text="@string/wed"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -205,7 +196,6 @@
                     android:text="05"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -215,7 +205,6 @@
                     android:text="@string/thu"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -242,7 +231,6 @@
                     android:text="06"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -252,7 +240,6 @@
                     android:text="@string/fri"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View
@@ -279,7 +266,6 @@
                     android:text="07"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="30dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -289,7 +275,6 @@
                     android:text="@string/sat"
                     android:textColor="@color/medium_dark_gray"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textAlignment="center"/>
 
                 <View

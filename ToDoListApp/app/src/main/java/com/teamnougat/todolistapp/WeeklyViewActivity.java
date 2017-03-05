@@ -2,6 +2,7 @@ package com.teamnougat.todolistapp;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
@@ -47,8 +47,7 @@ public class WeeklyViewActivity extends AppCompatActivity {
 
         getviews();
 
-        //density = getResources().getDisplayMetrics().density;
-        //final int px = (int)(mMinute * density);
+        density = getResources().getDisplayMetrics().density;
 
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -152,9 +151,17 @@ public class WeeklyViewActivity extends AppCompatActivity {
                 TextView msg = new TextView(WeeklyViewActivity.this);
                 msg.setText( cursor.getString(0) );
                 msg.setTextSize(15);
+                msg.setTypeface(Typeface.DEFAULT_BOLD);
                 msg.setTextColor(getResources().getColor(R.color.white));
                 msg.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                int px = 0;
+                if( cursor.getString(0).length() < 15 )
+                    px = (int)(70 * density);
+                else if( cursor.getString(0).length() < 23 )
+                    px = (int)(100 * density);
+                else
+                    px = (int)(140 * density);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, px);
                 params.setMargins(10,10,10,0);
                 msg.setLayoutParams(params);
                 msg.setPadding(0,10,0,10);
