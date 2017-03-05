@@ -13,7 +13,6 @@ public class TaskContract {
         public static final String COL_TASK_TYPE = "type";
         public static final String COL_TASK_DUEDATE = "duedate";
         public static final String COL_TASK_DUEDAY = "dueday";
-        public static final String COL_TASK_DUETIME = "duetime";
         public static final String COL_TASK_REMINDER = "reminder";
         public static final String COL_TASK_LOCATION = "location";
         public static final String COL_TASK_KEY = "key";

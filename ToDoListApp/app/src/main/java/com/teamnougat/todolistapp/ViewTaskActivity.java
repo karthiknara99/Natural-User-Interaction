@@ -89,7 +89,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
                 + TaskContract.TaskEntry.COL_TASK_TYPE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDATE + ", "
                 + TaskContract.TaskEntry.COL_TASK_DUEDAY + ", "
-                + TaskContract.TaskEntry.COL_TASK_DUETIME + ", "
                 + TaskContract.TaskEntry.COL_TASK_LOCATION
                 + " FROM " + TaskContract.TaskEntry.TABLE
                 + " WHERE " + TaskContract.TaskEntry.COL_TASK_ID + "=" +task_id +";";
@@ -125,7 +124,9 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
                 }
             }
             textType.setText(cursor.getString(1));
-            String[] input = cursor.getString(2).split("-");
+            String[] input = cursor.getString(2).split(" ");
+            textTime.setText(input[1].substring(0,5));
+            input = input[0].split("-");
             switch(input[1])
             {
                 case "01": input[1] = "Jan";   break;
@@ -143,14 +144,13 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             }
             newDate = cursor.getString(3) + ", " + input[1] + " " + input[2] + ", " + input[0];
             textDate.setText(newDate);
-            textTime.setText(cursor.getString(4));
-            if( cursor.getString(5) == null )
+            if( cursor.getString(4) == null )
             {
                 textLocation.setText("No Location");
                 textLocation.setTextColor(Color.parseColor("#A9A9A9"));
             }
             else
-                textLocation.setText(cursor.getString(5));
+                textLocation.setText(cursor.getString(4));
         }
         else{
             Toast.makeText(this, "Task Not Found", Toast.LENGTH_SHORT).show();

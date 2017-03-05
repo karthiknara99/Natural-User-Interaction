@@ -166,11 +166,12 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
         ContentValues values = new ContentValues();
 
+        finalDate = finalDate + " " + ctime.getText().toString() + ":00";
+
         values.put(TaskContract.TaskEntry.COL_TASK_TITLE, ctaskName.getText().toString().trim());
         values.put(TaskContract.TaskEntry.COL_TASK_TYPE, ctaskType.getSelectedItem().toString());
         values.put(TaskContract.TaskEntry.COL_TASK_DUEDATE, finalDate);
         values.put(TaskContract.TaskEntry.COL_TASK_DUEDAY, cdate.getText().toString().substring(0,3));
-        values.put(TaskContract.TaskEntry.COL_TASK_DUETIME, ctime.getText().toString());
         if(!clocation.getText().toString().isEmpty())
             values.put(TaskContract.TaskEntry.COL_TASK_LOCATION, clocation.getText().toString().trim());
 

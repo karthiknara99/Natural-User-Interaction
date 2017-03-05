@@ -8,4 +8,11 @@
     <color name="medium_gray">#C0C0C0</color>
     <color name="cleargray">#D3D3D3</color>
     <color name="strong_blue">#21749C</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="color1">#00a4e4</color>
+    <color name="color2">#405de6</color>
+    <color name="color3">#e1306c</color>
+    <color name="color4">#f77737</color>
+    <color name="color5">#02a388</color>
 </resources>

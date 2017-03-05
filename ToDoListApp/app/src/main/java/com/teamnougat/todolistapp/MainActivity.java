@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         if (cursor.moveToFirst()) {
             do {
                 taskId.add(cursor.getString(0));
-                String[] input = cursor.getString(3).split("-");
+                String[] input = cursor.getString(3).split(" ");
+                input = input[0].split("-");
                 switch(input[1])
                 {
                     case "01": newDate = "Jan";   break;

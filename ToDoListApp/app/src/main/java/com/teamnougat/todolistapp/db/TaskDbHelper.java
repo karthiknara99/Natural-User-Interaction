@@ -19,9 +19,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 TaskContract.TaskEntry.COL_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL, " +
                 TaskContract.TaskEntry.COL_TASK_TYPE + " CHAR(15) NOT NULL, " +
-                TaskContract.TaskEntry.COL_TASK_DUEDATE + " DATE NOT NULL, " +
+                TaskContract.TaskEntry.COL_TASK_DUEDATE + " DATETIME NOT NULL, " +
                 TaskContract.TaskEntry.COL_TASK_DUEDAY + " CHAR(15) NOT NULL, " +
-                TaskContract.TaskEntry.COL_TASK_DUETIME + " TIME, " +
                 TaskContract.TaskEntry.COL_TASK_REMINDER + " TIME, " +
                 TaskContract.TaskEntry.COL_TASK_LOCATION + " TEXT, " +
                 TaskContract.TaskEntry.COL_TASK_KEY + " INTEGER(1) NOT NULL DEFAULT 1); ";
