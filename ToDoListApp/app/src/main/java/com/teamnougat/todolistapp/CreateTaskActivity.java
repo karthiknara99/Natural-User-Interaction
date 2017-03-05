@@ -38,13 +38,14 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = "CreateTaskActivity";
     private TaskDbHelper myHelper;
-
-    Spinner ctaskType;
-    EditText ctaskName, clocation;
-    TextView cdate, ctime;
+    private Spinner ctaskType, taskType;
+    private EditText ctaskName, clocation;
+    private TextView cdate, ctime;
     private int mYear, mMonth, mDate, mDay, mHour, mMinute, newMonth;
     private String finalDate, sMonth, sDate, sHour, sMinute;
     private GestureLibrary gestLib;
+    private final Calendar c = Calendar.getInstance();
+    private ArrayAdapter<CharSequence> typeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,23 +61,37 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
             finish();
         setContentView(gestureOverLay);
 
-        myHelper = new TaskDbHelper(this);
+        getViews();
+        getVars();
 
-        Spinner taskType = (Spinner) findViewById(R.id.create_taskType);
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
-                this, R.array.task_types, R.layout.spinner_item);
-        typeAdapter.setDropDownViewResource(R.layout.spinner_item);
-        taskType.setAdapter(typeAdapter);
+        cdate.setText( findDay(mDay) + ", " + findMonth(mMonth+1) + " " + sDate + ", " + mYear );
+        ctime.setText("23" + ":" + "59");
+        cdate.setOnClickListener(this);
+        ctime.setOnClickListener(this);
+    }
 
+    private void getViews()
+    {
         ctaskName = (EditText)findViewById(R.id.create_taskName);
         ctaskType = (Spinner) findViewById(R.id.create_taskType);
         cdate = (TextView) findViewById(R.id.create_date);
         ctime = (TextView) findViewById(R.id.create_time);
         clocation = (EditText)findViewById(R.id.create_location);
+        taskType = (Spinner) findViewById(R.id.create_taskType);
+    }
 
-        final Calendar c = Calendar.getInstance();
+    private void getVars()
+    {
+        myHelper = new TaskDbHelper(this);
+
+        typeAdapter = ArrayAdapter.createFromResource(
+                this, R.array.task_types, R.layout.spinner_item);
+        typeAdapter.setDropDownViewResource(R.layout.spinner_item);
+        taskType.setAdapter(typeAdapter);
+
         mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH); newMonth = mMonth;  newMonth++;
+        mMonth = c.get(Calendar.MONTH);
+        newMonth = mMonth;  newMonth++;
         mDate = c.get(Calendar.DAY_OF_MONTH);
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -91,12 +106,6 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         sMonth += newMonth;
 
         finalDate = mYear + "-" + sMonth + "-" + sDate;
-
-        cdate.setText( findDay(mDay) + ", " + findMonth(mMonth+1) + " " + sDate + ", " + mYear );
-        ctime.setText("23" + ":" + "59");
-
-        cdate.setOnClickListener(this);
-        ctime.setOnClickListener(this);
     }
 
     @Override
@@ -117,7 +126,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                 }
                 else{
                     insertDb();
-                    setResult(RESULT_OK, null);
+                    setResult(RESULT_CANCELED, null);
                     finish();
                 }
                 return true;
@@ -243,7 +252,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
                 }
                 else{
                     insertDb();
-                    setResult(RESULT_OK, null);
+                    setResult(RESULT_CANCELED, null);
                     finish();
                 }
             }

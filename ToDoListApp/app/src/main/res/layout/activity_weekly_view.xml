@@ -321,7 +321,8 @@
                             android:id="@+id/sundayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -335,7 +336,8 @@
                             android:id="@+id/mondayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -349,7 +351,8 @@
                             android:id="@+id/tuesdayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -363,7 +366,8 @@
                             android:id="@+id/wednesdayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -377,7 +381,8 @@
                             android:id="@+id/thursdayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -391,7 +396,8 @@
                             android:id="@+id/fridayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -405,7 +411,8 @@
                             android:id="@+id/saturdayLinearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginTop="3dp">
                         </LinearLayout>
                     </RelativeLayout>
 

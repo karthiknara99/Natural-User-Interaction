@@ -21,7 +21,11 @@ import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements OnGesturePerformedListener {
 
@@ -30,7 +34,11 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     private ListView myList;
     private NewArrayAdapter myAdapter;
     private GestureLibrary gestLib;
-    ArrayList<String> taskId;
+    private ArrayList<String> taskId;
+    private final Calendar c = Calendar.getInstance();
+    private Date newDate;
+    private String sDate;
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         taskId = new ArrayList<>();
         myHelper = new TaskDbHelper(this);
         myList = (ListView) findViewById(R.id.list_todo);
+
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        c.add(Calendar.DAY_OF_YEAR, 0);
+        newDate = c.getTime();
+        sDate = dateFormat.format(newDate);
         updateUI();
 
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         if( resultCode == RESULT_OK ){
             updateUI();
         }
+        else if( resultCode == RESULT_CANCELED ){
+            updateUI();
+        }
     }
 
     @Override
@@ -101,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
                 startActivityForResult(i, 1);
             }
-            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("w")) {
+            if (prediction.score > 2.5 && prediction.name.toLowerCase().equals("w")) {
                 //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
                 startActivityForResult(i, 1);
@@ -117,10 +133,9 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         //db.execSQL("DELETE FROM " + TaskContract.TaskEntry.TABLE + ";");
         //db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE);
         String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
-                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1 ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
-        /*
-        SELECT TITLE, TYPE, DUEDATE FROM TASKS WHERE KEY=1 ORDER BY DUEDATE;
-        */
+                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         String newDate = "";

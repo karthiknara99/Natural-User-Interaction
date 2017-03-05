@@ -196,7 +196,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
                 //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Task Deleted!", Toast.LENGTH_SHORT).show();
                 deleteDb();
-                setResult(RESULT_OK, null);
+                setResult(RESULT_CANCELED, null);
                 finish();
             }
             else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))

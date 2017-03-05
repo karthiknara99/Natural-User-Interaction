@@ -3,6 +3,12 @@ package com.teamnougat.todolistapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.NavUtils;
@@ -23,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class WeeklyViewActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeeklyViewActivity extends AppCompatActivity implements View.OnClickListener, GestureOverlayView.OnGesturePerformedListener {
 
     private static final String TAG = "WeeklyViewActivity";
     private TaskDbHelper myHelper;
@@ -32,49 +38,35 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
     private Date newDate;
     private SimpleDateFormat dateFormat;
     private float density;
-    TextView[] myDay = new TextView[7];
-    View[] myMarker = new View[7];
-    LinearLayout[] myLayout = new LinearLayout[7];
-    TextView myMonth;
-    TextView[] msg;
-    ArrayList<String> taskId;
+    private TextView[] myDay = new TextView[7];
+    private View[] myMarker = new View[7];
+    private LinearLayout[] myLayout = new LinearLayout[7];
+    private TextView myMonth;
+    private TextView[] msg;
+    private ArrayList<String> taskId;
+    private final Calendar c = Calendar.getInstance();
+    private GestureLibrary gestLib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_view);
+
+        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        View inflate = getLayoutInflater().inflate(R.layout.activity_weekly_view, null);
+        gestureOverLay.addView(inflate);
+        gestureOverLay.addOnGesturePerformedListener(this);
+        gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
+        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        if(!gestLib.load())
+            finish();
+        setContentView(gestureOverLay);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        row_cnt = 0;
-        myHelper = new TaskDbHelper(this);
-        taskId = new ArrayList<>();
-        final Calendar c = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         getviews();
+        getVars();
 
-        density = getResources().getDisplayMetrics().density;
-
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        switch( mMonth+1 )
-        {
-            case 1: sMonth = "JANUARY";   break;
-            case 2: sMonth = "FEBRUARY";   break;
-            case 3: sMonth = "MARCH";   break;
-            case 4: sMonth = "APRIL";   break;
-            case 5: sMonth = "MAY";   break;
-            case 6: sMonth = "JUNE";   break;
-            case 7: sMonth = "JULY";   break;
-            case 8: sMonth = "AUGUST";   break;
-            case 9: sMonth = "SEPTEMBER";   break;
-            case 10: sMonth = "OCTOBER";   break;
-            case 11: sMonth = "NOVEMBER";   break;
-            case 12: sMonth = "DECEMBER";   break;
-        }
         myMonth.setText( sMonth + " " + mYear );
-
-        mDay = c.get(Calendar.DAY_OF_WEEK);
         myMarker[mDay-1].setVisibility(View.VISIBLE);
 
         subd = 1 - mDay;
@@ -91,24 +83,6 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
             myDay[i].setText( eDate.substring(8) );
         }
         getTaskDetails();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.weekly_view_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override   //Done
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void getviews()
@@ -137,6 +111,59 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         myLayout[6] = (LinearLayout) findViewById(R.id.saturdayLinearLayout);
     }
 
+    private void getVars()
+    {
+        row_cnt = 0;
+        density = getResources().getDisplayMetrics().density;
+        myHelper = new TaskDbHelper(this);
+        taskId = new ArrayList<>();
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        sMonth = getMonth(mMonth);
+        mDay = c.get(Calendar.DAY_OF_WEEK);
+    }
+
+    private String getMonth( int mMonth )
+    {
+        String sMonth = "";
+        switch( mMonth+1 )
+        {
+            case 1: sMonth = "JANUARY";   break;
+            case 2: sMonth = "FEBRUARY";   break;
+            case 3: sMonth = "MARCH";   break;
+            case 4: sMonth = "APRIL";   break;
+            case 5: sMonth = "MAY";   break;
+            case 6: sMonth = "JUNE";   break;
+            case 7: sMonth = "JULY";   break;
+            case 8: sMonth = "AUGUST";   break;
+            case 9: sMonth = "SEPTEMBER";   break;
+            case 10: sMonth = "OCTOBER";   break;
+            case 11: sMonth = "NOVEMBER";   break;
+            case 12: sMonth = "DECEMBER";   break;
+        }
+        return sMonth;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.weekly_view_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override   //Done
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int z;
@@ -145,6 +172,37 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
         i.putExtra("TASK_ID", msg);
         startActivityForResult(i, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( resultCode == RESULT_CANCELED ){
+            Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
+            }
+            else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK, null);
+                finish();
+            }
+        }
     }
 
     private void getTaskDetails() {
@@ -184,7 +242,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
                 else
                     px = (int)(140 * density);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, px);
-                params.setMargins(10,10,10,0);
+                params.setMargins(10,0,10,10);
                 msg[i].setLayoutParams(params);
                 msg[i].setPadding(0,10,0,10);
                 GradientDrawable shape =  new GradientDrawable();
