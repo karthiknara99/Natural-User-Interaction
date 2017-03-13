@@ -17,9 +17,12 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
@@ -47,11 +50,14 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
     private final Calendar c = Calendar.getInstance();
     private GestureLibrary gestLib;
 
+    GestureOverlayView gestureOverLay;
+    ScaleGestureDetector mScaleDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_weekly_view, null);
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
@@ -83,6 +89,8 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
             myDay[i].setText( eDate.substring(8) );
         }
         getTaskDetails();
+
+        mScaleDetector =  new ScaleGestureDetector(getApplicationContext(), new ScaleListener());
     }
 
     private void getviews()
@@ -277,5 +285,45 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
 
         cursor.close();
         db.close();
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener
+    {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector)
+        {
+            float scaleFactor = detector.getScaleFactor();
+            if (scaleFactor > 1)
+            {
+                //Toast.makeText(getApplicationContext(), "Pinch detected : " + scaleFactor, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
+                startActivity(i);
+                finish();
+                return true;
+            }
+            else
+            {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivityForResult(i, 1);
+                return true;
+            }
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev)
+    {
+        mScaleDetector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 }

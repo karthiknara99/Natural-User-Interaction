@@ -1,5 +1,6 @@
 package com.teamnougat.todolistapp;
 
+import android.content.Context;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
@@ -18,6 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.widget.Toast;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
@@ -39,12 +43,13 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     private Date newDate;
     private String sDate;
     private SimpleDateFormat dateFormat;
+    GestureOverlayView gestureOverLay;
+    ScaleGestureDetector mScaleDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        GestureOverlayView gestureOverLay = new GestureOverlayView(this);
+        gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_main, null);
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 startActivityForResult(i, 1);
             }
         });
+        mScaleDetector =  new ScaleGestureDetector(getApplicationContext(), new ScaleListener());
     }
 
     @Override
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
             updateUI();
         }
         else if( resultCode == RESULT_CANCELED ){
-            updateUI();
+                updateUI();
         }
     }
 
@@ -122,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
                 startActivityForResult(i, 1);
             }
+
         }
     }
 
@@ -145,24 +152,47 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 taskId.add(cursor.getString(0));
                 String[] input = cursor.getString(3).split(" ");
                 input = input[0].split("-");
-                switch(input[1])
-                {
-                    case "01": newDate = "Jan";   break;
-                    case "02": newDate = "Feb";   break;
-                    case "03": newDate = "Mar";   break;
-                    case "04": newDate = "Apr";   break;
-                    case "05": newDate = "May";   break;
-                    case "06": newDate = "Jun";   break;
-                    case "07": newDate = "Jul";   break;
-                    case "08": newDate = "Aug";   break;
-                    case "09": newDate = "Sep";   break;
-                    case "10": newDate = "Oct";   break;
-                    case "11": newDate = "Nov";   break;
-                    case "12": newDate = "Dec";   break;
+                switch (input[1]) {
+                    case "01":
+                        newDate = "Jan";
+                        break;
+                    case "02":
+                        newDate = "Feb";
+                        break;
+                    case "03":
+                        newDate = "Mar";
+                        break;
+                    case "04":
+                        newDate = "Apr";
+                        break;
+                    case "05":
+                        newDate = "May";
+                        break;
+                    case "06":
+                        newDate = "Jun";
+                        break;
+                    case "07":
+                        newDate = "Jul";
+                        break;
+                    case "08":
+                        newDate = "Aug";
+                        break;
+                    case "09":
+                        newDate = "Sep";
+                        break;
+                    case "10":
+                        newDate = "Oct";
+                        break;
+                    case "11":
+                        newDate = "Nov";
+                        break;
+                    case "12":
+                        newDate = "Dec";
+                        break;
                 }
                 newDate = cursor.getString(4) + ", " + newDate + " " + input[2];
 
-                taskList.add( new Item( cursor.getString(1), cursor.getString(2), newDate ) );
+                taskList.add(new Item(cursor.getString(1), cursor.getString(2), newDate));
             } while (cursor.moveToNext());
         }
 
@@ -171,8 +201,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                     R.layout.item_todo,
                     taskList);
             myList.setAdapter(myAdapter);
-        }
-        else {
+        } else {
             myAdapter.clear();
             myAdapter.addAll(taskList);
             myAdapter.notifyDataSetChanged();
@@ -181,4 +210,41 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         cursor.close();
         db.close();
     }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener
+    {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector)
+        {
+            float scaleFactor = detector.getScaleFactor();
+            if (scaleFactor > 1)
+            {
+                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
+                startActivityForResult(i, 1);
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev)
+    {
+        mScaleDetector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
 }
