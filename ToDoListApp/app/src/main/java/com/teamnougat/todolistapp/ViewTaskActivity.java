@@ -36,11 +36,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle b = getIntent().getExtras();
-        if( b == null )
-        {
-            Log.d(TAG, "No ID");
-        }
         task_id = getIntent().getStringExtra("TASK_ID");
         Log.d(TAG, task_id);
         GestureOverlayView gestureOverLay = new GestureOverlayView(this);
@@ -74,7 +69,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             case R.id.action_view_task:
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
                 updateDb();
-                setResult(RESULT_OK, null);
+                setResult(RESULT_CANCELED, null);
                 finish();
                 return true;
 
@@ -166,7 +161,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         String updateQuery = "UPDATE " + TaskContract.TaskEntry.TABLE + " SET " +
                 TaskContract.TaskEntry.COL_TASK_KEY + "=0 WHERE " + TaskContract.TaskEntry.COL_TASK_ID + "=" +task_id +";";
         db.execSQL(updateQuery);
-        Log.d(TAG, "Updated");
         db.close();
     }
 
@@ -175,7 +169,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         String updateQuery = "DELETE FROM " + TaskContract.TaskEntry.TABLE + " WHERE " +
                 TaskContract.TaskEntry.COL_TASK_ID + "=" +task_id +";";
         db.execSQL(updateQuery);
-        Log.d(TAG, "Deleted");
         db.close();
     }
 
@@ -189,7 +182,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
                 //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
                 updateDb();
-                setResult(RESULT_OK, null);
+                setResult(RESULT_CANCELED, null);
                 finish();
             }
             else if (prediction.score > 2.0 && prediction.name.toLowerCase().equals("alpha")) {
@@ -201,8 +194,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             }
             else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, null);
                 finish();
             }

@@ -14,6 +14,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,13 +38,16 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
     private static final String TAG = "WeeklyViewActivity";
     private TaskDbHelper myHelper;
     private int mYear, mMonth, mDay, subd, row_cnt;
+    private float scaleFactor;
     private String sDate, eDate, sMonth;
     private Date newDate;
     private SimpleDateFormat dateFormat;
     private float density;
     private TextView[] myDay = new TextView[7];
+    private String[] dateString = new String[7];
     private View[] myMarker = new View[7];
     private LinearLayout[] myLayout = new LinearLayout[7];
+    private LinearLayout[] myDateLayout = new LinearLayout[7];
     private TextView myMonth;
     private TextView[] msg;
     private ArrayList<String> taskId;
@@ -79,13 +83,18 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         c.add(Calendar.DAY_OF_YEAR, subd);
         newDate = c.getTime();
         sDate = dateFormat.format(newDate);
+        dateString[0] = sDate;
         myDay[0].setText( sDate.substring(8) );
+        myDateLayout[0].setOnClickListener(this);
 
         for( int i = 1; i < 7; i++ )
         {
+            myDateLayout[i].setOnClickListener(this);
+
             c.add(Calendar.DAY_OF_YEAR, 1);
             newDate = c.getTime();
             eDate = dateFormat.format(newDate);
+            dateString[i] = eDate;
             myDay[i].setText( eDate.substring(8) );
         }
         getTaskDetails();
@@ -110,13 +119,20 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         myMarker[4] = (View)findViewById(R.id.thursdayMarkerView);
         myMarker[5] = (View)findViewById(R.id.fridayMarkerView);
         myMarker[6] = (View)findViewById(R.id.saturdayMarkerView);
-        myLayout[0] = (LinearLayout) findViewById(R.id.sundayLinearLayout);
-        myLayout[1] = (LinearLayout) findViewById(R.id.mondayLinearLayout);
-        myLayout[2] = (LinearLayout) findViewById(R.id.tuesdayLinearLayout);
-        myLayout[3] = (LinearLayout) findViewById(R.id.wednesdayLinearLayout);
-        myLayout[4] = (LinearLayout) findViewById(R.id.thursdayLinearLayout);
-        myLayout[5] = (LinearLayout) findViewById(R.id.fridayLinearLayout);
-        myLayout[6] = (LinearLayout) findViewById(R.id.saturdayLinearLayout);
+        myLayout[0] = (LinearLayout)findViewById(R.id.sundayLinearLayout);
+        myLayout[1] = (LinearLayout)findViewById(R.id.mondayLinearLayout);
+        myLayout[2] = (LinearLayout)findViewById(R.id.tuesdayLinearLayout);
+        myLayout[3] = (LinearLayout)findViewById(R.id.wednesdayLinearLayout);
+        myLayout[4] = (LinearLayout)findViewById(R.id.thursdayLinearLayout);
+        myLayout[5] = (LinearLayout)findViewById(R.id.fridayLinearLayout);
+        myLayout[6] = (LinearLayout)findViewById(R.id.saturdayLinearLayout);
+        myDateLayout[0] = (LinearLayout)findViewById(R.id.sundayHeaderLinearLayout);
+        myDateLayout[1] = (LinearLayout)findViewById(R.id.mondayHeaderLinearLayout);
+        myDateLayout[2] = (LinearLayout)findViewById(R.id.tuesdayHeaderLinearLayout);
+        myDateLayout[3] = (LinearLayout)findViewById(R.id.wednesdayHeaderLinearLayout);
+        myDateLayout[4] = (LinearLayout)findViewById(R.id.thursdayHeaderLinearLayout);
+        myDateLayout[5] = (LinearLayout)findViewById(R.id.fridayHeaderLinearLayout);
+        myDateLayout[6] = (LinearLayout)findViewById(R.id.saturdayHeaderLinearLayout);
     }
 
     private void getVars()
@@ -131,6 +147,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         mMonth = c.get(Calendar.MONTH);
         sMonth = getMonth(mMonth);
         mDay = c.get(Calendar.DAY_OF_WEEK);
+        scaleFactor = 1.0f;
     }
 
     private String getMonth( int mMonth )
@@ -174,12 +191,42 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        int z;
-        for( z = 0; v != msg[z]; z++ );
-        String msg = "" + taskId.get(z);
-        Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
-        i.putExtra("TASK_ID", msg);
-        startActivityForResult(i, 1);
+        if( v == myDateLayout[0] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[0]));
+            finish();
+        }
+        else if( v == myDateLayout[1] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[1]));
+            finish();
+        }
+        else if( v == myDateLayout[2] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[2]));
+            finish();
+        }
+        else if( v == myDateLayout[3] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[3]));
+            finish();
+        }
+        else if( v == myDateLayout[4] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[4]));
+            finish();
+        }
+        else if( v == myDateLayout[5] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[5]));
+            finish();
+        }
+        else if( v == myDateLayout[6] ) {
+            setResult(RESULT_FIRST_USER, new Intent().putExtra("TASK_DATE", dateString[6]));
+            finish();
+        }
+        else {
+            int z;
+            for( z = 0; v != msg[z]; z++ );
+            String msg = "" + taskId.get(z);
+            Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
+            i.putExtra("TASK_ID", msg);
+            startActivityForResult(i, 1);
+        }
     }
 
     @Override
@@ -189,27 +236,6 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
             Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
             startActivity(i);
             finish();
-        }
-    }
-
-    @Override
-    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
-    {
-        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
-        for (Prediction prediction : predictions)
-        {
-            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
-                startActivityForResult(i, 1);
-            }
-            else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
-            {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "Return", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK, null);
-                finish();
-            }
         }
     }
 
@@ -287,36 +313,51 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         db.close();
     }
 
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
+            }
+            else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
+            {
+                setResult(RESULT_OK, null);
+                finish();
+            }
+        }
+    }
+
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener
     {
         @Override
         public boolean onScale(ScaleGestureDetector detector)
         {
-            float scaleFactor = detector.getScaleFactor();
-            if (scaleFactor > 1)
-            {
-                //Toast.makeText(getApplicationContext(), "Pinch detected : " + scaleFactor, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
-                startActivity(i);
-                finish();
-                return true;
-            }
-            else
-            {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(i, 1);
-                return true;
-            }
+            scaleFactor *= detector.getScaleFactor();
+            return true;
         }
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
             return true;
         }
 
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-
+            if( scaleFactor > 1 )
+            {
+                setResult(RESULT_OK, null);
+                finish();
+            }
+            else if( scaleFactor < 1 )
+            {
+                //go to calendar view
+            }
         }
     }
 

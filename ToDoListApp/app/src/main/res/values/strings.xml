@@ -45,4 +45,5 @@
     <string name="time11pm">11 pm</string>
 
     <string name="updating">Updating</string>
+    <string name="title_activity_temp">TempActivity</string>
 </resources>

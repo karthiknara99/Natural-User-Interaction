@@ -7,6 +7,7 @@ Gestures incorporated so far:<br/>
 <li>Create Task - "C"</li>
 <li>Save Task / Mark Task as done - "✓"</li>
 <li>Delete Task - "α" (Alpha)</li>
+<li>Weekly View - "w"</li>
 <li>Back to previous page - "→" (Swipe Right)</li>
 </ul>
 

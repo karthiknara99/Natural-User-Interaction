@@ -7,6 +7,7 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     private Date newDate;
     private String sDate;
     private SimpleDateFormat dateFormat;
+    private float scaleFactor;
+    private FloatingActionButton myFab;
     GestureOverlayView gestureOverLay;
     ScaleGestureDetector mScaleDetector;
 
@@ -67,7 +70,12 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         c.add(Calendar.DAY_OF_YEAR, 0);
         newDate = c.getTime();
         sDate = dateFormat.format(newDate);
-        updateUI();
+
+        String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+        updateUI(selectQuery);
 
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,7 +87,17 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 startActivityForResult(i, 1);
             }
         });
+
+        myFab = (FloatingActionButton) findViewById(R.id.action_add_task);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
+            }
+        });
+
         mScaleDetector =  new ScaleGestureDetector(getApplicationContext(), new ScaleListener());
+        scaleFactor = 1.0f;
     }
 
     @Override
@@ -91,9 +109,12 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     @Override   //Insert
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_task:
-                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
-                startActivityForResult(i, 1);
+            case R.id.action_refresh_task:
+                String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+                updateUI(selectQuery);
                 return true;
 
             default:
@@ -104,45 +125,30 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( resultCode == RESULT_OK ){
-            updateUI();
-        }
-        else if( resultCode == RESULT_CANCELED ){
-                updateUI();
-        }
-    }
-
-    @Override
-    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
-    {
-        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
-        for (Prediction prediction : predictions)
+        if( resultCode == RESULT_CANCELED || resultCode == RESULT_OK )
         {
-            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
-                startActivityForResult(i, 1);
-            }
-            if (prediction.score > 2.5 && prediction.name.toLowerCase().equals("w")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
-                startActivityForResult(i, 1);
-            }
-
+            String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                    + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                    + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                    + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+            updateUI(selectQuery);
+        }
+        else if( resultCode == RESULT_FIRST_USER )
+        {
+            String tempStartDate = data.getStringExtra("TASK_DATE") + " 00:00:00";
+            String tempEndDate = data.getStringExtra("TASK_DATE") + " 23:59:59";
+            String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                    + " WHERE " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + tempStartDate + "\""
+                    + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " <= \"" + tempEndDate + "\""
+                    + ";";
+            updateUI(selectQuery);
         }
     }
 
-    private void updateUI() {
+    private void updateUI(String selectQuery) {
         ArrayList<Item> taskList = new ArrayList<>();
         taskId.clear();
         SQLiteDatabase db = myHelper.getReadableDatabase();
-        //SQLiteDatabase db = myHelper.getWritableDatabase();
-        //db.execSQL("DELETE FROM " + TaskContract.TaskEntry.TABLE + ";");
-        //db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE);
-        String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
-                + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
-                + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
-                + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         String newDate = "";
@@ -153,42 +159,18 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 String[] input = cursor.getString(3).split(" ");
                 input = input[0].split("-");
                 switch (input[1]) {
-                    case "01":
-                        newDate = "Jan";
-                        break;
-                    case "02":
-                        newDate = "Feb";
-                        break;
-                    case "03":
-                        newDate = "Mar";
-                        break;
-                    case "04":
-                        newDate = "Apr";
-                        break;
-                    case "05":
-                        newDate = "May";
-                        break;
-                    case "06":
-                        newDate = "Jun";
-                        break;
-                    case "07":
-                        newDate = "Jul";
-                        break;
-                    case "08":
-                        newDate = "Aug";
-                        break;
-                    case "09":
-                        newDate = "Sep";
-                        break;
-                    case "10":
-                        newDate = "Oct";
-                        break;
-                    case "11":
-                        newDate = "Nov";
-                        break;
-                    case "12":
-                        newDate = "Dec";
-                        break;
+                    case "01":  newDate = "Jan";    break;
+                    case "02":  newDate = "Feb";    break;
+                    case "03":  newDate = "Mar";    break;
+                    case "04":  newDate = "Apr";    break;
+                    case "05":  newDate = "May";    break;
+                    case "06":  newDate = "Jun";    break;
+                    case "07":  newDate = "Jul";    break;
+                    case "08":  newDate = "Aug";    break;
+                    case "09":  newDate = "Sep";    break;
+                    case "10":  newDate = "Oct";    break;
+                    case "11":  newDate = "Nov";    break;
+                    case "12":  newDate = "Dec";    break;
                 }
                 newDate = cursor.getString(4) + ", " + newDate + " " + input[2];
 
@@ -211,32 +193,51 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         db.close();
     }
 
+    @Override
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
+    {
+        ArrayList<Prediction> predictions = gestLib.recognize(gesture);
+        for (Prediction prediction : predictions)
+        {
+            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
+                startActivityForResult(i, 1);
+            }
+            if (prediction.score > 2.5 && prediction.name.toLowerCase().equals("w")) {
+                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
+                startActivityForResult(i, 1);
+            }
+        }
+    }
+
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener
     {
         @Override
         public boolean onScale(ScaleGestureDetector detector)
         {
-            float scaleFactor = detector.getScaleFactor();
-            if (scaleFactor > 1)
-            {
-                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
-                startActivityForResult(i, 1);
-                return true;
-            }
-            else
-            {
-                return true;
-            }
+            scaleFactor *= detector.getScaleFactor();
+            return true;
         }
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
             return true;
         }
 
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-
+            if( scaleFactor > 1 )
+            {
+                return;
+            }
+            else if( scaleFactor < 1 )
+            {
+                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
+                startActivityForResult(i, 1);
+            }
         }
     }
 
