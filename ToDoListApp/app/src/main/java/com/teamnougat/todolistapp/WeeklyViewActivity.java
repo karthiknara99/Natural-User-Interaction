@@ -343,7 +343,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = detector.getScaleFactor();
             return true;
         }
 

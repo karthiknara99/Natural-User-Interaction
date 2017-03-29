@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = detector.getScaleFactor();
             return true;
         }
 

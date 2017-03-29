@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_edit_task"
-        android:title="View or Edit task"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/action_save_task"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="Save Task"
         app:showAsAction="always" />
 </menu>

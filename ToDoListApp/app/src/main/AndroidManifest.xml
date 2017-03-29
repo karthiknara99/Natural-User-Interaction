@@ -29,7 +29,12 @@
             android:name=".WeeklyViewActivity"
             android:icon="@drawable/ic_action_back"
             android:label="Weekly View"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditTaskActivity"
+            android:icon="@drawable/ic_action_back"
+            android:label="Edit Task"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

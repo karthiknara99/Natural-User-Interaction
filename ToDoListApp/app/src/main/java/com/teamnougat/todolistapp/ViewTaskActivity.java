@@ -1,5 +1,6 @@
 package com.teamnougat.todolistapp;
 
+import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.graphics.Color;
@@ -32,7 +33,13 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     private TaskDbHelper myHelper;
     private GestureLibrary gestLib;
     String task_id, newDate;
+    String setmonth, setdate, setyear, setHour, setMin;
     ActionBar ab;
+    TextView textTitle;
+    TextView textType;
+    TextView textDate;
+    TextView textTime;
+    TextView textLocation;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +70,27 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(RESULT_OK, null);
-                finish();
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
-            case R.id.action_view_task:
-                Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
-                updateDb();
-                setResult(RESULT_CANCELED, null);
-                finish();
+            case R.id.action_edit_task:
+
+
+
+                Intent i = new Intent(getApplicationContext(), EditTaskActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("TASK_ID", task_id);
+                extras.putString("TASK_NAME", textTitle.getText().toString());
+                extras.putString("TASK_TYPE", textType.getText().toString());
+                extras.putString("TASK_DATE", textDate.getText().toString());
+                extras.putString("CYEAR", setyear);
+                extras.putString("CMONTH", setmonth);
+                extras.putString("CDATE", setdate);
+                extras.putString("TASK_TIME", textTime.getText().toString());
+                extras.putString("CHOUR", setHour);
+                extras.putString("CMIN", setMin);
+                extras.putString("TASK_LOC", textLocation.getText().toString());
+                i.putExtras(extras);
+                startActivityForResult(i, 1);
                 return true;
 
             default:
@@ -91,11 +111,11 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        TextView textTitle = (TextView)findViewById(R.id.txv_TaskName);
-        TextView textType = (TextView)findViewById(R.id.txv_TaskType);
-        TextView textDate = (TextView)findViewById(R.id.txv_DueDate);
-        TextView textTime = (TextView)findViewById(R.id.txv_DueTime);
-        TextView textLocation = (TextView)findViewById(R.id.txv_Location);
+        textTitle = (TextView)findViewById(R.id.txv_TaskName);
+        textType = (TextView)findViewById(R.id.txv_TaskType);
+        textDate = (TextView)findViewById(R.id.txv_DueDate);
+        textTime = (TextView)findViewById(R.id.txv_DueTime);
+        textLocation = (TextView)findViewById(R.id.txv_Location);
 
         if (cursor.moveToFirst()) {
             textTitle.setText(cursor.getString(0));
@@ -122,7 +142,13 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             textType.setText(cursor.getString(1));
             String[] input = cursor.getString(2).split(" ");
             textTime.setText(input[1].substring(0,5));
+            String[] tmpTime = input[1].split(":");
+            setHour = tmpTime[0];
+            setMin = tmpTime[1];
             input = input[0].split("-");
+            setmonth = input[1];
+            setdate = input[2];
+            setyear = input[0];
             switch(input[1])
             {
                 case "01": input[1] = "Jan";   break;

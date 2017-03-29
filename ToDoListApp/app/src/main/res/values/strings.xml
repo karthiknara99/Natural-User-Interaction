@@ -46,4 +46,5 @@
 
     <string name="updating">Updating</string>
     <string name="title_activity_temp">TempActivity</string>
+    <string name="title_activity_edit_task">EditTaskActivity</string>
 </resources>
