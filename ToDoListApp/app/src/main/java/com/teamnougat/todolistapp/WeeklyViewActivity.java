@@ -66,7 +66,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        gestureOverLay.setGestureColor(getResources().getColor(R.color.gesture_color));
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);

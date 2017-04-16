@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         android:id="@+id/gOverlay"
         android:layout_gravity="center_horizontal"
-        android:gestureColor="#00000000"
-        android:uncertainGestureColor="#00000000"
+        android:gestureColor="@color/gesture_color"
+        android:uncertainGestureColor="@color/gesture_color"
         android:gestureStrokeType="multiple" >
     </android.gesture.GestureOverlayView>
 
@@ -32,18 +32,6 @@
         android:id="@+id/fab_rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/action_add_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/ic_action_plus"
-            app:backgroundTint="@color/color3"
-            app:elevation="3dp"
-            app:fabSize="normal"
-            app:pressedTranslationZ="6dp" />
-
     </FrameLayout>
 
 </RelativeLayout>

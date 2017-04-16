@@ -56,7 +56,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        gestureOverLay.setGestureColor(getResources().getColor(R.color.gesture_color));
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);
@@ -112,28 +112,6 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.create_task_menu, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override   //Save
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            case R.id.action_save_task:
-                if( ctaskName.getText().toString().isEmpty() ){
-                    Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    insertDb();
-                    setResult(RESULT_CANCELED, null);
-                    finish();
-                }
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public String findDay( int mDay ){

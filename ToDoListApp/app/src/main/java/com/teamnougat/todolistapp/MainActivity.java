@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        gestureOverLay.setGestureColor(getResources().getColor(R.color.gesture_color));
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);
@@ -84,14 +84,6 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
                 String msg = "" + taskId.get(temp);
                 Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
                 i.putExtra("TASK_ID", msg);
-                startActivityForResult(i, 1);
-            }
-        });
-
-        myFab = (FloatingActionButton) findViewById(R.id.action_add_task);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
                 startActivityForResult(i, 1);
             }
         });
@@ -200,13 +192,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         for (Prediction prediction : predictions)
         {
             if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
-                startActivityForResult(i, 1);
-            }
-            if (prediction.score > 2.5 && prediction.name.toLowerCase().equals("w")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), WeeklyViewActivity.class);
                 startActivityForResult(i, 1);
             }
         }

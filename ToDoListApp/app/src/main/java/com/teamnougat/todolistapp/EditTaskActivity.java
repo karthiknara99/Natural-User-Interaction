@@ -70,11 +70,10 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
 
         GestureOverlayView gestureOverLay = new GestureOverlayView(this);
         View inflate = getLayoutInflater().inflate(R.layout.activity_edit_task, null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        gestureOverLay.setGestureColor(getResources().getColor(R.color.gesture_color));
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);
@@ -108,7 +107,7 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
 
         mYear = Integer.parseInt(cyear);
         mMonth = Integer.parseInt(cmonth)-1;
-        newMonth = mMonth-1; newMonth++;
+        newMonth = mMonth; newMonth++;
         mDate = Integer.parseInt(cdate);
         mDay = c.get(Calendar.DAY_OF_WEEK);
         mHour = Integer.parseInt(chour);
@@ -207,28 +206,6 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override   //Save
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            case R.id.action_save_task:
-                if( textTitle.getText().toString().isEmpty() ){
-                    Toast.makeText(this, "Task Name Empty", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    updateDB();
-                    setResult(RESULT_CANCELED, null);
-                    finish();
-                }
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture)
     {
@@ -244,12 +221,15 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
                     Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
                     i.putExtra("TASK_ID", task_id);
                     startActivityForResult(i, 1);
+                    this.finish();
                 }
             }
             else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
-                setResult(RESULT_OK, null);
-                finish();
+                Intent i = new Intent(getApplicationContext(), ViewTaskActivity.class);
+                i.putExtra("TASK_ID", task_id);
+                startActivityForResult(i, 1);
+                this.finish();
             }
         }
     }

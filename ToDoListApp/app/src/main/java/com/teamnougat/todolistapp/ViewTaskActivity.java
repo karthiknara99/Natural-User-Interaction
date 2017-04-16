@@ -52,7 +52,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         gestureOverLay.addView(inflate);
         gestureOverLay.addOnGesturePerformedListener(this);
         gestLib = GestureLibraries.fromRawResource(this, R.raw.gesture);
-        gestureOverLay.setGestureColor(Color.TRANSPARENT);
+        gestureOverLay.setGestureColor(getResources().getColor(R.color.gesture_color));
         if(!gestLib.load())
             finish();
         setContentView(gestureOverLay);
@@ -64,38 +64,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.view_task_menu, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override   //Done
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            case R.id.action_edit_task:
-
-
-
-                Intent i = new Intent(getApplicationContext(), EditTaskActivity.class);
-                Bundle extras = new Bundle();
-                extras.putString("TASK_ID", task_id);
-                extras.putString("TASK_NAME", textTitle.getText().toString());
-                extras.putString("TASK_TYPE", textType.getText().toString());
-                extras.putString("TASK_DATE", textDate.getText().toString());
-                extras.putString("CYEAR", setyear);
-                extras.putString("CMONTH", setmonth);
-                extras.putString("CDATE", setdate);
-                extras.putString("TASK_TIME", textTime.getText().toString());
-                extras.putString("CHOUR", setHour);
-                extras.putString("CMIN", setMin);
-                extras.putString("TASK_LOC", textLocation.getText().toString());
-                i.putExtras(extras);
-                startActivityForResult(i, 1);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void getTaskDetails() {
@@ -119,8 +87,6 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
 
         if (cursor.moveToFirst()) {
             textTitle.setText(cursor.getString(0));
-            //if( cursor.getString(0) !=null )
-            //    ab.setTitle(cursor.getString(0));
             if( cursor.getString(1) != null )
             {
                 if( cursor.getString(1).equalsIgnoreCase("personal") )
@@ -204,15 +170,31 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
         ArrayList<Prediction> predictions = gestLib.recognize(gesture);
         for (Prediction prediction : predictions)
         {
-            if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Task Completed!", Toast.LENGTH_SHORT).show();
+            if (prediction.score > 3.0 && prediction.name.toLowerCase().equals("edit"))
+            {
+                Intent i = new Intent(getApplicationContext(), EditTaskActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("TASK_ID", task_id);
+                extras.putString("TASK_NAME", textTitle.getText().toString());
+                extras.putString("TASK_TYPE", textType.getText().toString());
+                extras.putString("TASK_DATE", textDate.getText().toString());
+                extras.putString("CYEAR", setyear);
+                extras.putString("CMONTH", setmonth);
+                extras.putString("CDATE", setdate);
+                extras.putString("TASK_TIME", textTime.getText().toString());
+                extras.putString("CHOUR", setHour);
+                extras.putString("CMIN", setMin);
+                extras.putString("TASK_LOC", textLocation.getText().toString());
+                i.putExtras(extras);
+                startActivityForResult(i, 1);
+                finish();
+            }
+            else if (prediction.score > 4.0 && prediction.name.toLowerCase().equals("tick")) {
                 updateDb();
                 setResult(RESULT_CANCELED, null);
                 finish();
             }
             else if (prediction.score > 2.0 && prediction.name.toLowerCase().equals("alpha")) {
-                //Toast.makeText(this, prediction.name + " - score:" + prediction.score, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Task Deleted!", Toast.LENGTH_SHORT).show();
                 deleteDb();
                 setResult(RESULT_CANCELED, null);
@@ -220,7 +202,7 @@ public class ViewTaskActivity extends AppCompatActivity implements OnGesturePerf
             }
             else if (prediction.score > 5.0 && prediction.name.toLowerCase().equals("right_swipe"))
             {
-                setResult(RESULT_OK, null);
+                setResult(RESULT_CANCELED, null);
                 finish();
             }
         }
