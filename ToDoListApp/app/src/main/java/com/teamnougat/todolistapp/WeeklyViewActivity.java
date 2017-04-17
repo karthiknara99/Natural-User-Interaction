@@ -8,13 +8,11 @@ import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +21,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamnougat.todolistapp.db.TaskContract;
 import com.teamnougat.todolistapp.db.TaskDbHelper;
@@ -75,6 +72,11 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
 
         getviews();
         getVars();
+
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_WEEK);
+        sMonth = getMonth(mMonth);
 
         myMonth.setText( sMonth + " " + mYear );
         myMarker[mDay-1].setVisibility(View.VISIBLE);
@@ -143,10 +145,6 @@ public class WeeklyViewActivity extends AppCompatActivity implements View.OnClic
         taskId = new ArrayList<>();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        sMonth = getMonth(mMonth);
-        mDay = c.get(Calendar.DAY_OF_WEEK);
         scaleFactor = 1.0f;
     }
 

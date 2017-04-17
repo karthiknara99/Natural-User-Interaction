@@ -34,6 +34,12 @@
             android:name=".EditTaskActivity"
             android:icon="@drawable/ic_action_back"
             android:label="Edit Task" />
+		<activity
+            android:name=".HandWritingActivity"
+            android:icon="@drawable/ic_action_back"
+            android:label="Handwriting"
+            android:parentActivityName=".CreateTaskActivity">
+        </activity>
     </application>
 
 </manifest>

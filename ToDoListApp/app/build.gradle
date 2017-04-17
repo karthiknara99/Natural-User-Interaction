@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+	repositories {
+        flatDir {
+            dirs '../libs'
+        }
+    }
 }
 
 dependencies {
@@ -29,4 +34,9 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+	
+	compile(name: 'MyScript_ATK-Core-android-component', ext: 'aar')
+	compile(name: 'MyScript_ATK-Text-android-component', ext: 'aar')
+	compile(name: 'MyScript_ATK-IMCommon-android-component', ext: 'aar')
+	compile(name: 'MyScript_ATK-SingleLineWidget-android-widget', ext: 'aar')
 }

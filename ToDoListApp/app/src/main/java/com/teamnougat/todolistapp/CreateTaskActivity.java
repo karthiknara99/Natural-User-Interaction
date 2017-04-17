@@ -1,13 +1,19 @@
 package com.teamnougat.todolistapp;
 
-import android.graphics.Color;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.gesture.Prediction;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,12 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import android.gesture.Gesture;
-import android.gesture.Prediction;
-import android.gesture.GestureLibraries;
-import android.gesture.GestureLibrary;
-import android.gesture.GestureOverlayView;
-import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 
 public class CreateTaskActivity extends AppCompatActivity implements View.OnClickListener, OnGesturePerformedListener{
 
@@ -41,6 +41,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     private Spinner ctaskType, taskType;
     private EditText ctaskName, clocation;
     private TextView cdate, ctime;
+    private EditText taskName;
     private int mYear, mMonth, mDate, mDay, mHour, mMinute, newMonth;
     private String finalDate, sMonth, sDate, sHour, sMinute;
     private GestureLibrary gestLib;
@@ -78,6 +79,7 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
         ctime = (TextView) findViewById(R.id.create_time);
         clocation = (EditText)findViewById(R.id.create_location);
         taskType = (Spinner) findViewById(R.id.create_taskType);
+        taskName = (EditText) findViewById(R.id.create_taskName);
     }
 
     private void getVars()
@@ -112,6 +114,34 @@ public class CreateTaskActivity extends AppCompatActivity implements View.OnClic
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.create_task_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override   //Insert
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_hand:
+                Intent i = new Intent(getApplicationContext(), HandWritingActivity.class);
+                startActivityForResult(i, 1);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( resultCode == RESULT_CANCELED )
+        {
+            String newS = data.getStringExtra("Task_Name");
+            if( !newS.isEmpty() )
+                taskName.setText(newS);
+        }
+        else
+        {
+
+        }
     }
 
     public String findDay( int mDay ){

@@ -1,29 +1,27 @@
 package com.teamnougat.todolistapp;
 
 import android.content.Intent;
-import android.gesture.Gesture;
-import android.gesture.Prediction;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.gesture.Prediction;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.teamnougat.todolistapp.db.TaskDbHelper;
 import com.teamnougat.todolistapp.db.TaskContract;
+import com.teamnougat.todolistapp.db.TaskDbHelper;
 
 import java.util.ArrayList;
 
