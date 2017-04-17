@@ -7,7 +7,9 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Gesture;
 import android.gesture.Prediction;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     private String sDate;
     private SimpleDateFormat dateFormat;
     private float scaleFactor;
-    private FloatingActionButton myFab;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     GestureOverlayView gestureOverLay;
     ScaleGestureDetector mScaleDetector;
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         taskId = new ArrayList<>();
         myHelper = new TaskDbHelper(this);
         myList = (ListView) findViewById(R.id.list_todo);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         c.add(Calendar.DAY_OF_YEAR, 0);
@@ -88,6 +91,18 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
             }
         });
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
+                    updateUI(selectQuery);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+        });
+
         mScaleDetector =  new ScaleGestureDetector(getApplicationContext(), new ScaleListener());
         scaleFactor = 1.0f;
     }
@@ -101,14 +116,6 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
     @Override   //Insert
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh_task:
-                String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
-                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
-                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
-                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";";
-                updateUI(selectQuery);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -191,7 +198,34 @@ public class MainActivity extends AppCompatActivity implements OnGesturePerforme
         ArrayList<Prediction> predictions = gestLib.recognize(gesture);
         for (Prediction prediction : predictions)
         {
-            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
+            if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("p")) {
+                String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_TYPE + " = \"Personal\""
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";"
+                        + ";";
+                updateUI(selectQuery);
+            }
+            else if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("w")) {
+                String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_TYPE + " = \"Work\""
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";"
+                        + ";";
+                updateUI(selectQuery);
+            }
+            else if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("o")) {
+                String selectQuery = "SELECT * FROM " + TaskContract.TaskEntry.TABLE
+                        + " WHERE " + TaskContract.TaskEntry.COL_TASK_TYPE + " = \"Other\""
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_KEY + "=1"
+                        + " AND " + TaskContract.TaskEntry.COL_TASK_DUEDATE + " >= \"" + sDate + "\""
+                        + " ORDER BY " + TaskContract.TaskEntry.COL_TASK_DUEDATE + ";"
+                        + ";";
+                updateUI(selectQuery);
+            }
+            else if (prediction.score > 3.5 && prediction.name.toLowerCase().equals("c")) {
                 Intent i = new Intent(getApplicationContext(), CreateTaskActivity.class);
                 startActivityForResult(i, 1);
             }
