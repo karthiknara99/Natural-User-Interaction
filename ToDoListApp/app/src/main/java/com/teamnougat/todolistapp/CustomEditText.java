@@ -15,7 +15,7 @@ public class CustomEditText extends EditText {
     private OnSelectionChanged mOnSelectionChangedListener;
 
     public interface OnSelectionChanged {
-        public void onSelectionChanged(EditText editText, int selStart, int selEnd);
+        void onSelectionChanged(EditText editText, int selStart, int selEnd);
     }
 
     public CustomEditText(Context context) {

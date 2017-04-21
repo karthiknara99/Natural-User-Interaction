@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.myscript.atk.core.ui.IStroker;
 import com.myscript.atk.sltw.SingleLineWidgetApi;
