@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_back.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_back.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_plus.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_plus.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_cross.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_cross.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowleft.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowleft.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_refresh.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_task.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_task.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_scrollbar_pattern_pressed.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_scrollbar_pattern_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_name.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_name.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_location_on.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_location_on.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_time.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_time.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_home.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_home.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowleft_pressed.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowleft_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowright_pressed.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowright_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_scrollbar_mask.9.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_scrollbar_mask.9.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_scrollbar_background.9.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_scrollbar_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_calendar.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_calendar.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_work.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_work.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_scrollbar_pattern.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_scrollbar_pattern.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowright.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowright.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowright_disabled.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowright_disabled.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\sltw_arrowleft_disabled.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\sltw_arrowleft_disabled.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi\\ic_action_other.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_other.png"
+    }
+]

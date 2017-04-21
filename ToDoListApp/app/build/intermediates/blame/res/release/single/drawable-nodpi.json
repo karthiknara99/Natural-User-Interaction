@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-nodpi\\sltw_bg_pattern.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-nodpi\\sltw_bg_pattern.png"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\drawable-nodpi\\sltw_text_cursor_holo_light.9.png",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\drawable-nodpi\\sltw_text_cursor_holo_light.9.png"
+    }
+]

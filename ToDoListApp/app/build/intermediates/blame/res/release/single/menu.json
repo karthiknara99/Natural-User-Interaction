@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\menu\\main_menu.xml",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\menu\\main_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\menu\\create_task_menu.xml",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\menu\\create_task_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\menu\\edit_task_menu.xml",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\menu\\edit_task_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\menu\\weekly_view_menu.xml",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\menu\\weekly_view_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\build\\intermediates\\res\\merged\\release\\menu\\view_task_menu.xml",
+        "source": "C:\\Users\\karthik\\AndroidStudioProjects\\ToDoListApp\\app\\src\\main\\res\\menu\\view_task_menu.xml"
+    }
+]

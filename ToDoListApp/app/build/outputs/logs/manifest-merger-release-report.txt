@@ -1,0 +1,134 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:2:1-45:12
+	package
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:3:5-41
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+application
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:5:5-43:19
+MERGED from [com.android.support:design:25.2.0] C:\Users\karthik\.android\build-cache\8454464707cd0d28b30045b2fe08d80ee2cce073\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:25.2.0] C:\Users\karthik\.android\build-cache\5e191bbac5e4a2e779445deec76fcc8cfb7c2857\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] C:\Users\karthik\.android\build-cache\f760e6df5e08868156b7cff098f7005269fbcbd8\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.2.0] C:\Users\karthik\.android\build-cache\77d08e7e52c4645bb8b52bd76c7d951c6dbe6f53\output\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:transition:25.2.0] C:\Users\karthik\.android\build-cache\91d9ae356c2c63ef7acc1bffd865afff591b9e31\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\karthik\.android\build-cache\481adb22a86b047556e2b67fb45fd28a940949f3\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.2.0] C:\Users\karthik\.android\build-cache\901b3c04ba247c6072c80f0bdc229125ab15f2b9\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.2.0] C:\Users\karthik\.android\build-cache\4e553f73684831721469d2b4dd62bee0e3336947\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.2.0] C:\Users\karthik\.android\build-cache\04bea20db6a7d2080ee95de2d97aab8901759e50\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.2.0] C:\Users\karthik\.android\build-cache\59ee4978e62ab3ee84c884e85ed6a97d6fb70652\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.2.0] C:\Users\karthik\.android\build-cache\86371a173e36b76a71edef46fe6a7584cfb331ee\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\karthik\.android\build-cache\dfc044f0587099dff7da856004eb61dcc2e02db3\output\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:9:9-35
+	android:allowBackup
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:10:9-40
+activity#com.teamnougat.todolistapp.MainActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:11:9-17:20
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:11:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:12:13-16:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:13:17-69
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:13:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:15:17-77
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:15:27-74
+activity#com.teamnougat.todolistapp.CreateTaskActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:18:9-22:58
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:21:13-37
+	android:parentActivityName
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:22:13-55
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:20:13-53
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:19:13-47
+activity#com.teamnougat.todolistapp.ViewTaskActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:23:9-27:58
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:26:13-33
+	android:parentActivityName
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:27:13-55
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:25:13-52
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:24:13-45
+activity#com.teamnougat.todolistapp.WeeklyViewActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:28:9-32:58
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:31:13-40
+	android:parentActivityName
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:32:13-55
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:30:13-52
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:29:13-47
+activity#com.teamnougat.todolistapp.EditTaskActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:33:9-36:41
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:36:13-38
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:35:13-52
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:34:13-45
+activity#com.teamnougat.todolistapp.HandWritingActivity
+ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:37:3-42:20
+	android:label
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:40:13-40
+	android:parentActivityName
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:41:13-61
+	android:icon
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:39:13-52
+	android:name
+		ADDED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:38:13-48
+uses-sdk
+INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:design:25.2.0] C:\Users\karthik\.android\build-cache\8454464707cd0d28b30045b2fe08d80ee2cce073\output\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.2.0] C:\Users\karthik\.android\build-cache\5e191bbac5e4a2e779445deec76fcc8cfb7c2857\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] C:\Users\karthik\.android\build-cache\f760e6df5e08868156b7cff098f7005269fbcbd8\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.2.0] C:\Users\karthik\.android\build-cache\77d08e7e52c4645bb8b52bd76c7d951c6dbe6f53\output\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:recyclerview-v7:25.2.0] C:\Users\karthik\.android\build-cache\ec86d16ea67d4d64bd90ea4304e32f510be4c420\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.2.0] C:\Users\karthik\.android\build-cache\91d9ae356c2c63ef7acc1bffd865afff591b9e31\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.2.0] C:\Users\karthik\.android\build-cache\481adb22a86b047556e2b67fb45fd28a940949f3\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.2.0] C:\Users\karthik\.android\build-cache\901b3c04ba247c6072c80f0bdc229125ab15f2b9\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.2.0] C:\Users\karthik\.android\build-cache\4e553f73684831721469d2b4dd62bee0e3336947\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.2.0] C:\Users\karthik\.android\build-cache\04bea20db6a7d2080ee95de2d97aab8901759e50\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.2.0] C:\Users\karthik\.android\build-cache\59ee4978e62ab3ee84c884e85ed6a97d6fb70652\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.2.0] C:\Users\karthik\.android\build-cache\86371a173e36b76a71edef46fe6a7584cfb331ee\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\karthik\.android\build-cache\dfc044f0587099dff7da856004eb61dcc2e02db3\output\AndroidManifest.xml:5:5-7:41
+MERGED from [:MyScript_ATK-Core-android-component:] C:\Users\karthik\.android\build-cache\4d3f3d4a2704a9488cd0be0b87476fb0ad76e84b\output\AndroidManifest.xml:7:5-9:41
+MERGED from [:MyScript_ATK-Text-android-component:] C:\Users\karthik\.android\build-cache\30f39c887940ce976f48319e56221a6a34c99f4a\output\AndroidManifest.xml:7:5-9:41
+MERGED from [:MyScript_ATK-IMCommon-android-component:] C:\Users\karthik\.android\build-cache\7b9904603d68f1d512038e04bf7985d1ff6ae338\output\AndroidManifest.xml:7:5-9:41
+MERGED from [:MyScript_ATK-SingleLineWidget-android-widget:] C:\Users\karthik\.android\build-cache\5aea199e0ac6273521f8ad424d80ed1f24ccce12\output\AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.2.0] C:\Users\karthik\.android\build-cache\8454464707cd0d28b30045b2fe08d80ee2cce073\output\AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:MyScript_ATK-Core-android-component:] C:\Users\karthik\.android\build-cache\4d3f3d4a2704a9488cd0be0b87476fb0ad76e84b\output\AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from [:MyScript_ATK-Core-android-component:] C:\Users\karthik\.android\build-cache\4d3f3d4a2704a9488cd0be0b87476fb0ad76e84b\output\AndroidManifest.xml:11:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from C:\Users\karthik\AndroidStudioProjects\ToDoListApp\app\src\main\AndroidManifest.xml:2:1-45:12 reason: com.myscript.atk.core requested WRITE_EXTERNAL_STORAGE
