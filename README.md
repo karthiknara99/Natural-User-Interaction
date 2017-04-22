@@ -24,6 +24,6 @@ Completion Dates:<br/>
 </ul>
 
 <br/>
-<a href="https://github.com/karthiknara99/Natural-User-Interaction/tree/master/APK">Click here to download APK</a>
-<br/>
-<a href="https://www.youtube.com/watch?v=I39kpPnJNS8">Click here to view Demo</a>
+<a href="https://github.com/karthiknara99/Natural-User-Interaction/tree/master/APK" target="_blank">Click here to download APK</a>
+<br/><br/>
+<a href="https://www.youtube.com/watch?v=I39kpPnJNS8" target="_blank">Click here to view Demo</a>
